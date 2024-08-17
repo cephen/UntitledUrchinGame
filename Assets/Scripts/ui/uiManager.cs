@@ -40,8 +40,7 @@ namespace UrchinGame.UI {
         }
 
         public void Quit() {
-            //UrchinGame.Debug.uiDebugConsole.instance.InternalCommandCall("quit");
-            Application.Quit();
+            UrchinGame.Debug.uiDebugConsole.instance.InternalCommandCall("quit");
         }
 
         /// <summary>
