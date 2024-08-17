@@ -10,13 +10,20 @@ namespace UrchinGame
         public static event ActorOutOfStaminaAction OnActorStaminaDepleted;
 
         [SerializeField] private float stamina;
-        private bool isSleeping = false;
-        public void Sleep() {
-            OnActorStaminaDepleted?.Invoke(); 
-            isSleeping = true;
-        }
 
-        public bool GetIsSleeping() { return isSleeping; }
-        private void
+        private void Start() {
+            stamina = 10;
+        }
+        private void Update() {
+            DepleteStaminaOverTime();
+            if (stamina < 0) 
+                OnActorStaminaDepleted?.Invoke();
+        }
+        public float GetStamina() { return stamina; }
+        private void DepleteStaminaOverTime() {
+            if (stamina > 0) {
+                stamina -= 1 * Time.deltaTime;
+            }
+        }
     }
 }

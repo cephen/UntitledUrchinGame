@@ -26,6 +26,8 @@ namespace UrchinGame
         void Update() {
             switch (stateMachine) {
                 case StateMachince.Running:
+                    if (actorStamina.GetStamina() < 0)
+                        stateMachine = StateMachince.NoStamina;
                     actorMove.Move();
                     if (Keyboard.current[Key.Space].wasPressedThisFrame && isPlayable)
                         stateMachine = StateMachince.Jump;
@@ -37,17 +39,12 @@ namespace UrchinGame
                     break;
 
                 case StateMachince.NoStamina:
-                    actorStamina.Sleep();
                     Log.Debug($"{gameObject.name} is out of stamina and fell asleep");
                     break;
 
                 default:
                     break;
             }
-        }
-
-        private void DepleteStaminaOverTime() {
-
         }
     }
 }
