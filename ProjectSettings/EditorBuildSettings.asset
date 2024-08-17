@@ -9,4 +9,5 @@ EditorBuildSettings:
     path: Assets/Scenes/Sandbox.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 739b38db00593394c8771ed7fb98c71d, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 9ee1726f8324b4b4a99ef2c9f40a298d, type: 2}
