@@ -7,19 +7,22 @@ namespace UrchinGame
     public class ActorJump : MonoBehaviour
     {
         [SerializeField] private float jumpPower;
-        [SerializeField] private int jumpCount = 0;
+        [SerializeField] private float jumpStaminaAmount;
+        private int jumpCount = 0;
         private Rigidbody2D rb;
-        [SerializeField]private bool isGrounded;
+        private bool isGrounded;
 
-
+        private ActorStamina actorStamina;
         private void Start() {
             rb = GetComponent<Rigidbody2D>();
+            actorStamina = GetComponent<ActorStamina>();
         }
         public void Jump() {
             if (jumpCount < 1 && isGrounded) {
                 jumpCount++;
                 isGrounded = false;
                 rb.velocity = Vector2.up * jumpPower;
+                actorStamina.UseStamina(jumpStaminaAmount);
             }
         }
         private void ResetJump() {

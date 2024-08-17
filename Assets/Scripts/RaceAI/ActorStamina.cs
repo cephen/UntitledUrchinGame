@@ -20,6 +20,9 @@ namespace UrchinGame
                 OnActorStaminaDepleted?.Invoke();
         }
         public float GetStamina() { return stamina; }
+        public void UseStamina(float staminaAmount) {
+            stamina -= staminaAmount;
+        }
         private void DepleteStaminaOverTime() {
             if (stamina > 0) {
                 stamina -= 1 * Time.deltaTime;
