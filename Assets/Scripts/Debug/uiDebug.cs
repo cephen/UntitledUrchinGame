@@ -173,9 +173,7 @@ namespace UrchinGame.Debug {
 
         void Controls() {
             if (Keyboard.current[Key.F4].wasPressedThisFrame) { debugLines = debugMode && !debugLines; }
-
-            if (Keyboard.current[Key.F5].wasPressedThisFrame) { uiDebugConsole.instance.InternalCommandCall("reset"); }
-
+            
             if (Keyboard.current[Key.F6].wasPressedThisFrame) { ToggleNoclip(); }
         }
 
