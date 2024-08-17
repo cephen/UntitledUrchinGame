@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Logging;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using Random = System.Random;
@@ -15,6 +16,9 @@ namespace UrchinGame.Game
         public bool paused { get; private set; }
         public Volume globalVolume { get; private set; }
         public System.Random random { get; private set; }
+
+        [SerializeField] private AssetReference nurseryScene;
+
         private void Awake() {
             instance = this;
             random = new Random();
@@ -34,7 +38,7 @@ namespace UrchinGame.Game
         }
 
         public void Play() {
-            SceneManager.LoadScene("Nursery");
+            Addressables.LoadScene(nurseryScene, LoadSceneMode.Additive);
         }
 
         #region Unload all non persistent manager scenes on start if in editor
