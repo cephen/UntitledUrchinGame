@@ -38,15 +38,17 @@ namespace UrchinGame
             speed = startSpeed;
         }
         public void Move() {
-            Vector2 moveDir = Vector2.right;
-            transform.Translate(moveDir * speed * Time.deltaTime);
+            Vector2 sufraceNormal = SurfaceNormalVector();
+            Vector2 moveDir = sufraceNormal + Vector2.right;
+            rb.transform.Translate(moveDir * speed * Time.deltaTime);
+            
         }
 
         private void Update() {
             CheckTrackAngle();
             FrontRayCast();
             BackRayCast();
-            AdjustSpeedOnHill();
+            //AdjustSpeedOnHill();
             //Log.Debug($"currente speed = {speed}");
         }
 
@@ -78,6 +80,22 @@ namespace UrchinGame
             RaycastHit2D hit = Physics2D.Raycast(collider2D.bounds.center - yOffsetLeft, Vector2.left, backRayDistance, groundLayerMask);
             UnityEngine.Debug.DrawRay(collider2D.bounds.center - yOffsetLeft, Vector2.left * backRayDistance, Color.red);
             return hit;
+        }
+
+        private Vector2 SurfaceNormalVector() {
+            float rayDistance = 1000f;
+            Vector2 surfaceNomral;
+            RaycastHit2D hit = Physics2D.Raycast(collider2D.bounds.center, Vector2.down, rayDistance, groundLayerMask);
+            UnityEngine.Debug.DrawRay(collider2D.bounds.center, Vector2.down * rayDistance, Color.magenta);
+            if (hit) {
+                surfaceNomral = hit.normal;
+            }
+            else {
+                surfaceNomral = Vector2.zero;
+                Log.Debug($"Actor {gameObject.name} can't find suface normal");
+            }
+                
+            return surfaceNomral;
         }
 
         private void AdjustSpeedOnHill() {

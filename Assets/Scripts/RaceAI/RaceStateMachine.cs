@@ -23,7 +23,7 @@ namespace UrchinGame
             actorStamina = GetComponent<ActorStamina>();
         }
 
-        void Update() {
+        void FixedUpdate() {
             switch (stateMachine) {
                 case StateMachince.Running:
                     if (actorStamina.GetStamina() < 0)
