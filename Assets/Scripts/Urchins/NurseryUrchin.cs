@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Unity.Mathematics;
 using UnityEngine;
 using UrchinGame.Food;
@@ -51,7 +51,7 @@ namespace UrchinGame.Urchins {
         private void ApplyStats() {
             _body.mass = _stats.Weight;
             _collider.radius = _stats.Size * 0.5f * _sizeScale;
-            _bodyRenderer.size = Vector2.one * _stats.Size * _sizeScale;
+            _bodyRenderer.transform.localScale = _stats.Size * _sizeScale * Vector3.one;
         }
 
 #endregion
