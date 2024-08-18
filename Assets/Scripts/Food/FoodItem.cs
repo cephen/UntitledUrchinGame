@@ -25,6 +25,7 @@ namespace UrchinGame.Food {
         private float _phaseShift;
 
         private FallState _state = FallState.Falling;
+
         private enum FallState { Falling, Resting }
 
         public void Init(FoodData data, ContactFilter2D contactFilter) {
@@ -35,7 +36,11 @@ namespace UrchinGame.Food {
         }
 
         public void Consume() {
+#if UNITY_EDITOR
+            DestroyImmediate(this);
+#else
             Destroy(this);
+#endif
         }
 
 
