@@ -32,6 +32,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 36d6661a6d622a749820e87931f2fd53
+    m_Address: Assets/Scenes/PersistentManagers.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1a2bd121fd5e0a9489ac447986ac6daf, type: 2}
   m_SchemaSet:

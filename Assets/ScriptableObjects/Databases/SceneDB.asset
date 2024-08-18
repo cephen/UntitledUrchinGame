@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ba79cd2ca140ce8c80d9cc4a93959e, type: 3}
+  m_Name: SceneDB
+  m_EditorClassIdentifier: 
+  <MainMenu>k__BackingField:
+    m_AssetGUID: 33ad9dde37fb98740ba9971fecb351e5
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  <Nursery>k__BackingField:
+    m_AssetGUID: 5155bd40c9b746f4084cd8ac98ab8f1a
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  <Racetrack>k__BackingField:
+    m_AssetGUID: 15d023d7cf3810b49a8eb00d9fb6c6c2
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  <PersistentManagers>k__BackingField:
+    m_AssetGUID: 36d6661a6d622a749820e87931f2fd53
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  <GameplayManagers>k__BackingField:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
