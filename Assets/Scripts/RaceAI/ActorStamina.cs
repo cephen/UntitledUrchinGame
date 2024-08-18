@@ -9,11 +9,8 @@ namespace UrchinGame
         public delegate void ActorOutOfStaminaAction();
         public static event ActorOutOfStaminaAction OnActorStaminaDepleted;
 
-        [SerializeField] private float stamina;
+        [SerializeField, Range(0f,100f), Tooltip("How long the actor can race for.")] private float stamina;
 
-        private void Start() {
-            stamina = 10;
-        }
         private void Update() {
             DepleteStaminaOverTime();
             if (stamina < 0) 

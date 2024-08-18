@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 37056395}
   - component: {fileID: 37056394}
   - component: {fileID: 37056398}
-  m_Layer: 4
+  m_Layer: 10
   m_Name: Track Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -608,7 +608,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7752268245720111281, guid: 7bda457a815d40a41889d2a99cce143c, type: 3}
       propertyPath: groundLayerMask.m_Bits
-      value: 16
+      value: 1024
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -641,11 +641,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3433487204639270221, guid: 889ea7c223044024c9ad849e92360a23, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.09
+      value: -9.587
       objectReference: {fileID: 0}
     - target: {fileID: 3433487204639270221, guid: 889ea7c223044024c9ad849e92360a23, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.07
+      value: -5.1
       objectReference: {fileID: 0}
     - target: {fileID: 3433487204639270221, guid: 889ea7c223044024c9ad849e92360a23, type: 3}
       propertyPath: m_LocalPosition.z
@@ -684,16 +684,24 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7752268245720111281, guid: 889ea7c223044024c9ad849e92360a23, type: 3}
+      propertyPath: speed
+      value: 5.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752268245720111281, guid: 889ea7c223044024c9ad849e92360a23, type: 3}
+      propertyPath: startSpeed
+      value: 6.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752268245720111281, guid: 889ea7c223044024c9ad849e92360a23, type: 3}
       propertyPath: groundLayerMask.m_Bits
-      value: 16
+      value: 1024
       objectReference: {fileID: 0}
     - target: {fileID: 7752268245720111281, guid: 889ea7c223044024c9ad849e92360a23, type: 3}
       propertyPath: speedDecreaseMultiplier
-      value: 1.54
+      value: 4.15
       objectReference: {fileID: 0}
     - target: {fileID: 7752268245720111281, guid: 889ea7c223044024c9ad849e92360a23, type: 3}
       propertyPath: speedIncreaseMultiplier
-      value: 0.45
+      value: 7.13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -774,7 +782,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7752268245720111281, guid: e590f2c3a67f4524fb061e066df34fb2, type: 3}
       propertyPath: groundLayerMask.m_Bits
-      value: 16
+      value: 1024
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1348,7 +1356,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7752268245720111281, guid: a68d9170280c09541992d01ba133f4a4, type: 3}
       propertyPath: groundLayerMask.m_Bits
-      value: 16
+      value: 1024
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

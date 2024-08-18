@@ -10,7 +10,7 @@ namespace UrchinGame
         [SerializeField] private float jumpStaminaAmount;
         private int jumpCount = 0;
         private Rigidbody2D rb;
-        private bool isGrounded;
+        [SerializeField]private bool isGrounded; // serialized for debugging
 
         private ActorStamina actorStamina;
         private void Start() {
@@ -24,6 +24,9 @@ namespace UrchinGame
                 rb.velocity = Vector2.up * jumpPower;
                 actorStamina.UseStamina(jumpStaminaAmount);
             }
+        }
+        public bool GetGroundedStatus() {
+            return isGrounded;
         }
         private void ResetJump() {
             jumpCount = 0;

@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06acfee5daf60d943ac2f3b684d4a280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stamina: 0
+  stamina: 22.3
 --- !u!114 &3803248244084876647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,7 +128,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4644a8921c0d0245ab16fd3a13d45dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  startSpeed: 5.2
+  speedIncreaseMultiplier: 1.62
+  speedDecreaseMultiplier: 2.13
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  goingUpHill: 0
+  goingDownHill: 0
 --- !u!114 &7092341821075472610
 MonoBehaviour:
   m_ObjectHideFlags: 0
