@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using Unity.Logging;
 using Unity.Mathematics;
 using UnityEngine;
 using UrchinGame.Food;
@@ -105,6 +106,7 @@ namespace UrchinGame.Urchins {
         }
 
         private void EatState() {
+            Log.Debug("[NurseryUrchin] {0} is eating food {1}", name, _trackedFood.name);
             _stats.Weight += _trackedFood.Data.Weight;
             ApplyStats();
             _trackedFood.Consume();
