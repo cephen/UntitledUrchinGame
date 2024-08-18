@@ -5,11 +5,17 @@ using UrchinGame.Food;
 
 namespace UrchinGame.Urchins {
     [RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D))]
-    internal sealed class UrchinController : MonoBehaviour {
+    internal sealed class NurseryUrchin : MonoBehaviour {
+        // A minimum is needed to ensure the urchin can move around the nursery
+        private const float BASE_SPEED = 1f;
+
         [SerializeField] private StatBlock _stats;
+        [SerializeField] private SpriteRenderer _bodyRenderer;
+
         private FoodItem _trackedFood = null;
         private State _state = State.Idle;
         private Rigidbody2D _body;
+        private CircleCollider2D _collider;
 
         private enum State {
             Idle,
@@ -47,6 +53,13 @@ namespace UrchinGame.Urchins {
 
         private void Awake() {
             _body = GetComponent<Rigidbody2D>();
+            _collider = GetComponent<CircleCollider2D>();
+        }
+
+        private void Start() {
+            _body.mass = _stats.Weight;
+            _collider.radius = _stats.Size * 0.5f;
+            _bodyRenderer.size = Vector2.one * _stats.Size;
         }
 
         private void FixedUpdate() {
@@ -83,11 +96,12 @@ namespace UrchinGame.Urchins {
 
             float2 toFood = ((float3)(_trackedFood.transform.position - transform.position)).xy;
             float2 direction = math.normalize(toFood);
-            _body.AddForce(direction * _stats.MaxSpeed, ForceMode2D.Force);
+            _body.AddForce(direction * (BASE_SPEED + _stats.MaxSpeed), ForceMode2D.Force);
         }
 
         private void EatState() {
             _stats.Weight += _trackedFood.Data.Weight;
+            _body.mass = _stats.Weight;
             _trackedFood.Consume();
             _trackedFood = null;
             _body.simulated = true;

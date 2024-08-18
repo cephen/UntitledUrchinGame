@@ -10,10 +10,10 @@ namespace UrchinGame.Urchins {
     public sealed class NurseryManager : MonoBehaviour {
         #if UNITY_EDITOR
         [SerializeField, Tooltip("Prefab used in editor to spawn urchins at runtime")]
-        private UrchinController _urchinPrefab;
+        private NurseryUrchin _urchinPrefab;
         #endif
 
-        private HashSet<UrchinController> _urchins = new();
+        private HashSet<NurseryUrchin> _urchins = new();
 
 #region Unity Lifecycle
 
@@ -34,7 +34,7 @@ namespace UrchinGame.Urchins {
             if (modifier && activator) {
                 Vector2 mousePos = Mouse.current.position.ReadValue();
                 Vector3 spawnPos = Camera.main.ScreenToWorldPoint(mousePos).With(z: 0f);
-                UrchinController urchin = Instantiate(_urchinPrefab);
+                NurseryUrchin urchin = Instantiate(_urchinPrefab);
                 urchin.transform.position = spawnPos;
                 _urchins.Add(urchin);
             }
@@ -59,10 +59,10 @@ namespace UrchinGame.Urchins {
         private void OnFoodReady(FoodReady e) {
             float3 foodPos = e.Food.transform.position;
 
-            UrchinController closest = null;
+            NurseryUrchin closest = null;
             float closestDist = float.PositiveInfinity;
 
-            foreach (UrchinController urchin in _urchins) {
+            foreach (NurseryUrchin urchin in _urchins) {
                 float dist = math.distance(urchin.transform.position, foodPos);
 
                 if (!(dist < closestDist)) continue;
