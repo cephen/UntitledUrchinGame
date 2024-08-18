@@ -1,4 +1,4 @@
-﻿using SideFX.Events;
+using SideFX.Events;
 using Unity.Logging;
 using Unity.Mathematics;
 using UnityEngine;
@@ -15,9 +15,10 @@ namespace UrchinGame.Food {
 
     [RequireComponent(typeof(Collider2D), typeof(Rigidbody2D), typeof(SpriteRenderer))]
     public sealed class FoodItem : MonoBehaviour {
+        internal FoodData Data { get; private set; }
+
         private ContactFilter2D _contactFilter;
         private Rigidbody2D _body;
-        private FoodData _data;
         private SpriteRenderer _renderer;
         private float _startTime;
         private float _startX;
@@ -26,9 +27,9 @@ namespace UrchinGame.Food {
         private FallState _state = FallState.Falling;
 
         public void Init(FoodData data, ContactFilter2D contactFilter) {
+            Data = data;
+            _renderer.sprite = Data.Sprite;
             _contactFilter = contactFilter;
-            _data = data;
-            _renderer.sprite = _data.Sprite;
             _phaseShift = UnityEngine.Random.value * 360f;
         }
 
@@ -47,12 +48,12 @@ namespace UrchinGame.Food {
         private void FixedUpdate() {
             if (_state is FallState.Resting) return;
 
-            float phase = math.sin(_data.SwaySpeed * (Time.time - _startTime + _phaseShift));
+            float phase = math.sin(Data.SwaySpeed * (Time.time - _startTime + _phaseShift));
 
             float2 currPos = (Vector2)transform.position;
 
-            float hPos = _startX + _data.SwayAmount * phase;
-            float vMove = _data.FallSpeed * Time.deltaTime;
+            float hPos = _startX + Data.SwayAmount * phase;
+            float vMove = Data.FallSpeed * Time.deltaTime;
             float vPos = currPos.y - vMove;
 
             _body.MovePosition(new Vector2(hPos, vPos));
