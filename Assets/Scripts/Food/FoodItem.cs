@@ -1,4 +1,4 @@
-﻿using SideFX.Events;
+using SideFX.Events;
 using Unity.Logging;
 using Unity.Mathematics;
 using UnityEngine;
@@ -36,10 +36,11 @@ namespace UrchinGame.Food {
         }
 
         public void Consume() {
+            Log.Debug("[FoodItem] {0} consumed", Data.Name);
 #if UNITY_EDITOR
-            DestroyImmediate(this);
+            DestroyImmediate(gameObject);
 #else
-            Destroy(this);
+            Destroy(gameObject);
 #endif
         }
 
