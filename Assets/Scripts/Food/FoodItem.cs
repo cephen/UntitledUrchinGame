@@ -1,8 +1,18 @@
-﻿using Unity.Logging;
+﻿using SideFX.Events;
+using Unity.Logging;
 using Unity.Mathematics;
 using UnityEngine;
 
 namespace UrchinGame.Food {
+    /// <summary>
+    /// Raised when a food item touches the floor of the tank,
+    /// signifying it can be reached by urchins.
+    /// </summary>
+    public readonly struct FoodReady : IEvent {
+        public readonly FoodItem Food;
+        public FoodReady(FoodItem food) => Food = food;
+    }
+
     [RequireComponent(typeof(Collider2D), typeof(Rigidbody2D), typeof(SpriteRenderer))]
     public sealed class FoodItem : MonoBehaviour {
         private ContactFilter2D _contactFilter;
@@ -54,6 +64,8 @@ namespace UrchinGame.Food {
 
             Log.Debug("Food {0} touched collider {1}, entering Resting state", name, other.gameObject.name);
             _state = FallState.Resting;
+
+            EventBus<FoodReady>.Raise(new FoodReady(this));
         }
 
 #endregion
