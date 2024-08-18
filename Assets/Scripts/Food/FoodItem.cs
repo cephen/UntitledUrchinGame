@@ -1,4 +1,4 @@
-using Unity.Logging;
+﻿using Unity.Logging;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -11,6 +11,7 @@ namespace UrchinGame.Food {
         private SpriteRenderer _renderer;
         private float _startTime;
         private float _startX;
+        private float _phaseShift;
 
         private FallState _state = FallState.Falling;
 
@@ -18,6 +19,7 @@ namespace UrchinGame.Food {
             _contactFilter = contactFilter;
             _data = data;
             _renderer.sprite = _data.Sprite;
+            _phaseShift = UnityEngine.Random.value * 360f;
         }
 
         private enum FallState { Falling, Resting }
@@ -35,7 +37,7 @@ namespace UrchinGame.Food {
         private void FixedUpdate() {
             if (_state is FallState.Resting) return;
 
-            float phase = math.sin(_data.SwaySpeed * (Time.time - _startTime));
+            float phase = math.sin(_data.SwaySpeed * (Time.time - _startTime + _phaseShift));
 
             float2 currPos = (Vector2)transform.position;
 
