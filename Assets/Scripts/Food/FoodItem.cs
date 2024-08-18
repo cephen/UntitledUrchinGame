@@ -1,4 +1,4 @@
-using SideFX.Events;
+﻿using SideFX.Events;
 using Unity.Logging;
 using Unity.Mathematics;
 using UnityEngine;
@@ -25,6 +25,7 @@ namespace UrchinGame.Food {
         private float _phaseShift;
 
         private FallState _state = FallState.Falling;
+        private enum FallState { Falling, Resting }
 
         public void Init(FoodData data, ContactFilter2D contactFilter) {
             Data = data;
@@ -33,7 +34,10 @@ namespace UrchinGame.Food {
             _phaseShift = UnityEngine.Random.value * 360f;
         }
 
-        private enum FallState { Falling, Resting }
+        public void Consume() {
+            Destroy(this);
+        }
+
 
 #region Unity Lifecycle
 
