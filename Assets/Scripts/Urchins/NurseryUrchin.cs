@@ -9,6 +9,7 @@ namespace UrchinGame.Urchins {
         // A minimum is needed to ensure the urchin can move around the nursery
         private const float BASE_SPEED = 1f;
 
+        [SerializeField] private float _sizeScale = 0.2f; // Used for collider abd body size
         [SerializeField] private StatBlock _stats;
         [SerializeField] private SpriteRenderer _bodyRenderer;
 
@@ -47,6 +48,12 @@ namespace UrchinGame.Urchins {
             _ => math.distance(transform.position, _trackedFood.transform.position),
         };
 
+        private void ApplyStats() {
+            _body.mass = _stats.Weight;
+            _collider.radius = _stats.Size * 0.5f * _sizeScale;
+            _bodyRenderer.size = Vector2.one * _stats.Size * _sizeScale;
+        }
+
 #endregion
 
 #region Unity Lifecycle
@@ -57,9 +64,7 @@ namespace UrchinGame.Urchins {
         }
 
         private void Start() {
-            _body.mass = _stats.Weight;
-            _collider.radius = _stats.Size * 0.5f;
-            _bodyRenderer.size = Vector2.one * _stats.Size;
+            ApplyStats();
         }
 
         private void FixedUpdate() {
@@ -101,7 +106,7 @@ namespace UrchinGame.Urchins {
 
         private void EatState() {
             _stats.Weight += _trackedFood.Data.Weight;
-            _body.mass = _stats.Weight;
+            ApplyStats();
             _trackedFood.Consume();
             _trackedFood = null;
             _body.simulated = true;
