@@ -47,11 +47,11 @@ namespace UrchinGame.Food {
         }
 
         private void OnCollisionEnter2D(Collision2D other) {
-            Log.Debug("Food {0} touched collider {1}", name, other.gameObject.name);
-
             bool isTerrain = _contactFilter.IsFilteringLayerMask(other.gameObject);
+            if (isTerrain) return;
 
-            if (isTerrain) _state = FallState.Resting;
+            Log.Debug("Food {0} touched collider {1}, entering Resting state", name, other.gameObject.name);
+            _state = FallState.Resting;
         }
 
 #endregion
