@@ -1,4 +1,4 @@
-using SideFX.Events;
+﻿using SideFX.Events;
 using Unity.Logging;
 using Unity.Mathematics;
 using UnityEngine;
@@ -30,6 +30,7 @@ namespace UrchinGame.Food {
 
         public void Init(FoodData data, ContactFilter2D contactFilter) {
             Data = data;
+            name = Data.Name;
             _renderer.sprite = Data.Sprite;
             _contactFilter = contactFilter;
             _phaseShift = UnityEngine.Random.value * 360f;
