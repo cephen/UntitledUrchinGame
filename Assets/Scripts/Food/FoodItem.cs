@@ -1,11 +1,12 @@
-﻿using Unity.Logging;
+using Unity.Logging;
 using Unity.Mathematics;
 using UnityEngine;
 
 namespace UrchinGame.Food {
-    [RequireComponent(typeof(Collider2D), typeof(SpriteRenderer))]
+    [RequireComponent(typeof(Collider2D), typeof(Rigidbody2D), typeof(SpriteRenderer))]
     public sealed class FoodItem : MonoBehaviour {
         private ContactFilter2D _contactFilter;
+        private Rigidbody2D _body;
         private FoodData _data;
         private SpriteRenderer _renderer;
         private float _startTime;
@@ -23,10 +24,11 @@ namespace UrchinGame.Food {
 
 #region Unity Lifecycle
 
-        private void Start() {
+        private void Awake() {
             _startX = transform.position.x;
             _startTime = Time.time;
             _renderer = GetComponent<SpriteRenderer>();
+            _body = GetComponent<Rigidbody2D>();
         }
 
 
@@ -41,7 +43,7 @@ namespace UrchinGame.Food {
             float vMove = _data.FallSpeed * Time.deltaTime;
             float vPos = currPos.y - vMove;
 
-            transform.position = new Vector3(hPos, vPos);
+            _body.MovePosition(new Vector2(hPos, vPos));
         }
 
         private void OnCollisionEnter2D(Collision2D other) {
