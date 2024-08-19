@@ -17,16 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 025f6df9be520f240b49d3bccbf2349a
   m_SerializeEntries:
-  - m_GUID: 99710a07a57e33a44aadb762a1a712ac
-    m_Address: Assets/Textures/uiShopButtonBG.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f5b57b3a08dad31418a4fb589abf005d
-    m_Address: Assets/Textures/Food
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 98ef9eff4aaadef4fb3157ab69386209
     m_Address: Assets/Textures/GroundSprites
     m_ReadOnly: 0
