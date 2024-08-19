@@ -8,17 +8,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1258444637313370512, guid: b4f7177da085ef641a90a5d1da102525, type: 3}
+      propertyPath: m_Spline.m_IsOpenEnded
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4175879238665012368, guid: b4f7177da085ef641a90a5d1da102525, type: 3}
       propertyPath: m_DynamicOccludee
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4513734028049705990, guid: b4f7177da085ef641a90a5d1da102525, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.74
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4513734028049705990, guid: b4f7177da085ef641a90a5d1da102525, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.04
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4513734028049705990, guid: b4f7177da085ef641a90a5d1da102525, type: 3}
       propertyPath: m_LocalPosition.z
@@ -54,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8513449253838828029, guid: b4f7177da085ef641a90a5d1da102525, type: 3}
       propertyPath: m_Name
-      value: Deep Bumpy Terrain Section Variant
+      value: Terrain Section Bumpy - Deep Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
