@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Unity.Logging;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UrchinGame.Food;
 
 namespace UrchinGame.Urchins {
@@ -24,6 +26,7 @@ namespace UrchinGame.Urchins {
         private Rigidbody2D _body;
         private CircleCollider2D _collider;
         private Unity.Mathematics.Random _rng = new((uint)DateTimeOffset.UtcNow.GetHashCode());
+        private Camera _trackedCamera;
 
         private float _lastStateChange = float.MinValue;
         private float _timeToIdle;
@@ -52,6 +55,31 @@ namespace UrchinGame.Urchins {
 
             float distanceToFood = math.distance(transform.position, food.transform.position);
             _state = distanceToFood < MaxEatDistance ? State.Eat : State.MoveToFood;
+        }
+
+        internal void PickUp() {
+            // _body.simulated = false;
+            Log.Debug("[NurseryUrchin] Player picked up {0}", name);
+            _state = State.Carried;
+            _trackedCamera = Camera.main;
+        }
+
+        private void Drop() {
+
+            var contacts = new List<Collider2D>();
+            _body.GetContacts(contacts);
+
+            foreach (Collider2D contact in contacts) {
+                if (contact.TryGetComponent(out Treadmill treadmill)) {
+                    Log.Debug("[NurseryUrchin] Player dropped {0} on treadmill", name);
+                    transform.SetParent(treadmill.TrainingPosition);
+                    _state = State.Treadmill;
+                    return;
+                }
+            }
+
+            Log.Debug("[NurseryUrchin] Player dropped {0}", name);
+            ToIdle();
         }
 
 #region Helpers
@@ -110,8 +138,9 @@ namespace UrchinGame.Urchins {
         private void ToIdle() {
             Log.Debug("[NurseryUrchin] {0} started Idle", name);
             _body.gravityScale = 1f;
+            _body.drag = 0.7f;
             _body.velocity = Vector2.zero;
-            _body.constraints = RigidbodyConstraints2D.FreezePosition;
+
             _lastStateChange = Time.time;
             _timeToIdle = _rng.NextFloat(MIN_IDLE_TIME, MAX_IDLE_TIME);
             _state = State.Idle;
@@ -132,8 +161,6 @@ namespace UrchinGame.Urchins {
                     // Unreachable
                     throw new ArgumentOutOfRangeException();
             }
-
-            _body.constraints = RigidbodyConstraints2D.None;
         }
 
         private void ToWander() {
@@ -161,7 +188,6 @@ namespace UrchinGame.Urchins {
 
         private void MoveToFoodState() {
             if (DistanceToFood < MaxEatDistance) {
-                // _body.simulated = false;
                 _body.velocity = Vector3.zero;
                 _state = State.Eat;
                 return;
@@ -183,7 +209,16 @@ namespace UrchinGame.Urchins {
             ToIdle();
         }
 
-        private void CarryState() { }
+        private void CarryState() {
+            if (!Mouse.current.leftButton.isPressed) {
+                Drop();
+                return;
+            }
+
+            float2 mousePos = Mouse.current.position.ReadValue();
+            float3 worldPos = _trackedCamera.ScreenToWorldPoint(math.float3(mousePos, 0f));
+            _body.MovePosition(worldPos.xy);
+        }
         private void TreadmillState() { }
 
 #endregion
