@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Unity.Logging;
 using Unity.Mathematics;
 using UnityEngine;
@@ -45,6 +45,10 @@ namespace UrchinGame.Urchins {
         /// </summary>
         internal void GoEat(FoodItem food) {
             _trackedFood = food;
+
+            if (_state is State.Idle) {
+                _body.constraints = RigidbodyConstraints2D.None;
+            }
 
             float distanceToFood = math.distance(transform.position, food.transform.position);
             _state = distanceToFood < MaxEatDistance ? State.Eat : State.MoveToFood;
@@ -157,14 +161,16 @@ namespace UrchinGame.Urchins {
 
         private void MoveToFoodState() {
             if (DistanceToFood < MaxEatDistance) {
-                _body.simulated = false;
+                // _body.simulated = false;
+                _body.velocity = Vector3.zero;
                 _state = State.Eat;
                 return;
             }
 
             float2 toFood = ((float3)(_trackedFood.transform.position - transform.position)).xy;
             float2 direction = math.normalize(toFood);
-            _body.AddForce(direction * (BASE_SPEED + _stats.MaxSpeed), ForceMode2D.Force);
+            _body.AddForce(direction * MoveSpeed, ForceMode2D.Force);
+            _body.velocity = Vector3.ClampMagnitude(_body.velocity, MoveSpeed);
         }
 
         private void EatState() {
