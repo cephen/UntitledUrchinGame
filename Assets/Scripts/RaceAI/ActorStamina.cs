@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UrchinGame
+namespace UrchinGame.AI
 {
     public class ActorStamina : MonoBehaviour
     {
