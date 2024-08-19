@@ -12,8 +12,10 @@ namespace UrchinGame.Urchins {
         private const float MIN_IDLE_TIME = 1f;
         private const float MAX_IDLE_TIME = 3f;
 
-        [SerializeField] private float _sizeScale = 0.2f; // Used for collider abd body size
+        // Distance from center to edge of tank
+        private const float TANK_WIDTH = 8f;
 
+        [SerializeField] private float _sizeScale = 0.4f; // Used for collider abd body size
         [SerializeField] private StatBlock _stats;
         [SerializeField] private SpriteRenderer _bodyRenderer;
 
@@ -25,6 +27,7 @@ namespace UrchinGame.Urchins {
 
         private float _lastStateChange = float.MinValue;
         private float _timeToIdle;
+        private float _wanderTarget;
 
         private enum State {
             Idle,
@@ -49,12 +52,14 @@ namespace UrchinGame.Urchins {
 
 #region Helpers
 
-        private float MaxEatDistance => _stats.Size * 1.2f;
+        private float MaxEatDistance => _stats.Size;
 
         private float DistanceToFood => _trackedFood switch {
             null => float.PositiveInfinity,
             _ => math.distance(transform.position, _trackedFood.transform.position),
         };
+
+        private float MoveSpeed => BASE_SPEED + _stats.MaxSpeed;
 
         private void ApplyStats() {
             _body.mass = _stats.Weight;
@@ -128,7 +133,24 @@ namespace UrchinGame.Urchins {
         }
 
         private void ToWander() {
+            _wanderTarget = _rng.NextFloat(-TANK_WIDTH, TANK_WIDTH);
             Log.Debug("[NurseryUrchin] {0} started Wander to {1}", name, _wanderTarget);
+            _lastStateChange = Time.time;
+            _state = State.Wander;
+        }
+
+        private void WanderState() {
+            float distanceToTarget = math.distance(_wanderTarget, _body.position.x);
+
+            if (distanceToTarget <= 0.1f) {
+                Log.Debug("[NurseryUrchin] {0} reached wander target", name);
+                ToIdle();
+                return;
+            }
+
+            float moveDirection = math.sign(_wanderTarget - _body.position.x);
+            _body.AddForce(new Vector2(moveDirection, 0) * MoveSpeed, ForceMode2D.Force);
+            _body.velocity = Vector3.ClampMagnitude(_body.velocity, MoveSpeed);
         }
 
         private void RestState() { }
