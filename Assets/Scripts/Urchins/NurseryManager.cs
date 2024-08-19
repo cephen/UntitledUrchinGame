@@ -96,9 +96,11 @@ namespace UrchinGame.Urchins {
         }
 
         private void OnShopPurchase(OnShopPurchase e) {
+#if UNITY_EDITOR
             FoodItem newFoodItem = Instantiate(_foodItemPrefab, transform);
             newFoodItem.Init(e.food, e.contactFilter);
             _spawnedFoodItems.Add(newFoodItem);
+#endif
         }
 
 #endregion
