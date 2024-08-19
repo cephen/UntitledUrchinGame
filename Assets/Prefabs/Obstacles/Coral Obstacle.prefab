@@ -93,8 +93,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9157729170507697187}
-  - component: {fileID: 2530710030656908858}
   - component: {fileID: 2259788089705127831}
+  - component: {fileID: 6278403775894135657}
   m_Layer: 0
   m_Name: Coral Obstacle
   m_TagString: Untagged
@@ -118,8 +118,20 @@ Transform:
   - {fileID: 1842804348817929352}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &2530710030656908858
-BoxCollider2D:
+--- !u!114 &2259788089705127831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8223461830907543652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb77a78da75458841949797e1686f71d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!70 &6278403775894135657
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -150,28 +162,6 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0487628, y: 0.14628911}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 5.3886538, y: 6.7540116}
-  m_EdgeRadius: 0
---- !u!114 &2259788089705127831
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8223461830907543652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb77a78da75458841949797e1686f71d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Offset: {x: -0.014741417, y: 0.27243426}
+  m_Size: {x: 5.400339, y: 7.4514303}
+  m_Direction: 0
