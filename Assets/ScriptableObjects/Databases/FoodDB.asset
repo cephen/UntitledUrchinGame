@@ -43,7 +43,7 @@ MonoBehaviour:
   - Name: Coral
     Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
     UIShopSprite:
-      m_AssetGUID: fc75617b44d959a42bdcf65e270d7d5d
+      m_AssetGUID: 1227a374677188648b32f1d9cf9d5097
       m_SubObjectName: coral
       m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
