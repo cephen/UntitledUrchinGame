@@ -17,33 +17,13 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 025f6df9be520f240b49d3bccbf2349a
   m_SerializeEntries:
-  - m_GUID: 4baa2bb8602562e429ff390248e07653
-    m_Address: Assets/Textures/uiShopCoral.png
+  - m_GUID: 99710a07a57e33a44aadb762a1a712ac
+    m_Address: Assets/Textures/uiShopButtonBG.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 46a48d0ce12b0cd44a3efc73e1d1db37
-    m_Address: Assets/Textures/uiShopMussel.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d65500c550db62d439ed303e7b26f25d
-    m_Address: Assets/Textures/uiShopStar.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 50b9ace25c8bcf94d947aacfe20ddb53
-    m_Address: Assets/Textures/uiShopCucumber.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9909b15e70809a84bb5acf61adbef94b
-    m_Address: Assets/Textures/uiShopAlgae.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e5ff81a3443ba4d40a88394b44fecc63
-    m_Address: Assets/Textures/uiShopSponge.png
+  - m_GUID: f5b57b3a08dad31418a4fb589abf005d
+    m_Address: Assets/Textures/Food
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
