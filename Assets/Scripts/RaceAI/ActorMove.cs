@@ -39,7 +39,8 @@ namespace UrchinGame
         }
         public void Move() {
             Vector2 sufraceNormal = SurfaceNormalVector();
-            Vector2 moveDir = sufraceNormal + Vector2.right;
+            //Vector2 moveDir = sufraceNormal + Vector2.right; not working - trying to use surface normal stick to the floor and stop jittering
+            Vector2 moveDir = Vector2.right;
             rb.transform.Translate(moveDir * speed * Time.deltaTime);
             
         }
