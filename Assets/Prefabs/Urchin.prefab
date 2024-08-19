@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8763836087089978558}
   - component: {fileID: 886165815799219739}
   - component: {fileID: 7407579116816030323}
+  - component: {fileID: -883483249035777319}
   m_Layer: 0
   m_Name: Urchin
   m_TagString: Untagged
@@ -81,9 +82,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_Mass: 2
+  m_LinearDrag: 0.3
+  m_AngularDrag: 0.2
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -96,6 +97,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-883483249035777319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3697204702858150975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecb4e463476b4299ad668d6da860629e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sizeScale: 0.4
+  _stats:
+    Weight: 1
+    MaxStamina: 1
+    MaxSpeed: 1
+    Size: 1
+  _bodyRenderer: {fileID: 6426433464216353876}
 --- !u!1 &5145981771460161162
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,8 +189,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  m_Color: {r: 0.8207547, g: 0.22841759, b: 0.6664998, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
