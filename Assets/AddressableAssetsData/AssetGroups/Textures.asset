@@ -47,6 +47,66 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 98ef9eff4aaadef4fb3157ab69386209
+    m_Address: Assets/Textures/GroundSprites
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a20b3d5a066f65a4ea81d5a5a7029fb0
+    m_Address: Assets/Textures/obstacles
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c2d78cfe6c043424ba0042d59a11b123
+    m_Address: Assets/Textures/food
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f3845971259422a4fbdbbce70d40daa3
+    m_Address: Assets/Textures/enemy
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d52902d6fffd6194faac7be4b4ad7902
+    m_Address: Assets/Textures/treadmill
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 361fb14233a409444b18755940f5929c
+    m_Address: Assets/Textures/logo
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 682d142ab004f054885f989cd8c34952
+    m_Address: Assets/Textures/urchins
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 88e48e822a719aa4fa3846574f9d7fef
+    m_Address: Assets/Textures/goal flag
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d8bd7077783f23141a388a7cd9b6e1a5
+    m_Address: Assets/Textures/stamina screen
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f89c6cb2f38fb8e47b27eadb2a5c4233
+    m_Address: Assets/Textures/buttons
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1ad985dd7537595438d172bbaa586f67
+    m_Address: Assets/Textures/stats
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fb5e943c15566884e9ff615e60b3fb75
+    m_Address: Assets/Textures/shop
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1a2bd121fd5e0a9489ac447986ac6daf, type: 2}
   m_SchemaSet:
