@@ -75,7 +75,7 @@ namespace UrchinGame.Food {
                     return;
                 case State.Despawning: // fade out the renderer
                     float elapsedRatio = math.unlerp(_despawnStartTime, _despawnStartTime + DespawnTime, Time.time);
-                    if (elapsedRatio >= 1f) {
+                    if (elapsedRatio >= 1.1f) { // add a slight delay after animation completes
 #if UNITY_EDITOR
                         DestroyImmediate(gameObject);
 #else
@@ -84,7 +84,7 @@ namespace UrchinGame.Food {
                         return;
                     }
 
-                    float alpha = math.clamp(elapsedRatio, 0f, 1f);
+                    float alpha = 1f - math.clamp(elapsedRatio, 0f, 1f);
                     _renderer.color = _renderer.color.WithAlpha(alpha);
                     return;
                 default:
