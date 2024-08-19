@@ -45,3 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _urchinPrefab: {fileID: -883483249035777319, guid: d7f7447639b093c468392a5cb3effdea, type: 3}
+  _foodItemPrefab: {fileID: 1406694945955491612, guid: daad32f98312d7c4e8e949aab5c44bc5, type: 3}

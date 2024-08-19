@@ -58,7 +58,7 @@ namespace UrchinGame.UI
             foreach (FoodData foodData in foodDB.FoodData) {
                 GameObject newButtonObject = Instantiate(shopButtonPrefab, uiShopScrollRect.content.transform);
                 uiShopButton newButton = newButtonObject.GetComponent<uiShopButton>();
-                newButton.Init(foodData);
+                newButton.Init(foodData, foodDB.ContactFilter);
             }
         }
         private void Update() {
