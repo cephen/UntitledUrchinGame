@@ -1,4 +1,4 @@
-﻿using SideFX.Events;
+using SideFX.Events;
 using Unity.Logging;
 using Unity.Mathematics;
 using UnityEngine;
@@ -24,9 +24,11 @@ namespace UrchinGame.Food {
         private float _startX;
         private float _phaseShift;
 
-        private FallState _state = FallState.Falling;
+        private State _state = State.Falling;
+        private const float DespawnTime = 2f;
+        private float _despawnStartTime;
 
-        private enum FallState { Falling, Resting }
+        private enum State { Falling, Resting, Despawning }
 
         public void Init(FoodData data, ContactFilter2D contactFilter) {
             Data = data;
@@ -57,17 +59,35 @@ namespace UrchinGame.Food {
 
 
         private void FixedUpdate() {
-            if (_state is FallState.Resting) return;
+            switch (_state) {
+                case State.Falling:
+                    float phase = math.sin(Data.SwaySpeed * (Time.time - _startTime + _phaseShift));
 
-            float phase = math.sin(Data.SwaySpeed * (Time.time - _startTime + _phaseShift));
+                    float2 currPos = (Vector2)transform.position;
 
-            float2 currPos = (Vector2)transform.position;
+                    float hPos = _startX + Data.SwayAmount * phase;
+                    float vMove = Data.FallSpeed * Time.deltaTime;
+                    float vPos = currPos.y - vMove;
 
-            float hPos = _startX + Data.SwayAmount * phase;
-            float vMove = Data.FallSpeed * Time.deltaTime;
-            float vPos = currPos.y - vMove;
+                    _body.MovePosition(new Vector2(hPos, vPos));
+                    return;
+                case State.Despawning: // fade out the renderer
+                    float elapsedRatio = math.unlerp(_despawnStartTime, _despawnStartTime + DespawnTime, Time.time);
+                    if (elapsedRatio >= 1f) {
+#if UNITY_EDITOR
+                        DestroyImmediate(gameObject);
+#else
+                        Destroy(gameObject);
+#endif
+                        return;
+                    }
 
-            _body.MovePosition(new Vector2(hPos, vPos));
+                    float alpha = math.clamp(elapsedRatio, 0f, 1f);
+                    _renderer.color = _renderer.color.WithAlpha(alpha);
+                    return;
+                default:
+                    return;
+            }
         }
 
         private void OnCollisionEnter2D(Collision2D other) {
@@ -75,7 +95,7 @@ namespace UrchinGame.Food {
             if (isTerrain) return;
 
             Log.Debug("Food {0} touched collider {1}, entering Resting state", name, other.gameObject.name);
-            _state = FallState.Resting;
+            _state = State.Resting;
 
             EventBus<FoodReady>.Raise(new FoodReady(this));
         }
