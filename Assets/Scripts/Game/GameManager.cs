@@ -18,7 +18,7 @@ namespace UrchinGame.Game
         public Volume globalVolume { get; private set; }
         public System.Random random { get; private set; }
 
-        [SerializeField] private string persistentManagersSceneName;
+        [SerializeField] private string persistentManagersSceneName = "PersistentManagers";
         [SerializeField] private AssetReference nurseryScene;
 
         private void Awake() {

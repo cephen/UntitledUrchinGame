@@ -417,6 +417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2453ff37afee672438125fa687f4ba58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  persistentManagersSceneName: PersistentManagers
   nurseryScene:
     m_AssetGUID: 5155bd40c9b746f4084cd8ac98ab8f1a
     m_SubObjectName: 
