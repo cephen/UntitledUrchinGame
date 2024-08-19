@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Audio
+  m_EditorClassIdentifier: 
+  m_GroupName: Audio
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 206cc8a8349c5fc45b652cc9c4c4eedc
+  m_SerializeEntries:
+  - m_GUID: 061cff17e9741584bb7e69146bf67c8c
+    m_Address: Assets/Audio/Race Scene
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 865bd0ec7db9f6e41a97532e2b519f4e
+    m_Address: Assets/Audio/UI
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 98ae61853ede3a54bade261d98ffe369
+    m_Address: Assets/Audio/Fish Tank
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8e555d96886719846a0efba3a56a39af
+    m_Address: Assets/Audio/Urchin
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 1a2bd121fd5e0a9489ac447986ac6daf, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 091c4c54c90782342beb0a51f3d053fa, type: 2}
+    - {fileID: 11400000, guid: f0aaedc6a51232346b70b7f3cf019759, type: 2}
