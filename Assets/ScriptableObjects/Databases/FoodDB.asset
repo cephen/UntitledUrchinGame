@@ -29,6 +29,25 @@ MonoBehaviour:
   FoodData:
   - Name: Algae
     Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+    UIShopSprite:
+      m_AssetGUID: 9909b15e70809a84bb5acf61adbef94b
+      m_SubObjectName: uiShopAlgae
+      m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      m_EditorAssetChanged: 1
+    Cost: 5
+    FallSpeed: 1
+    SwayAmount: 1
+    SwaySpeed: 1
+    Weight: 1
+  - Name: Coral
+    Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+    UIShopSprite:
+      m_AssetGUID: 4baa2bb8602562e429ff390248e07653
+      m_SubObjectName: uiShopCoral
+      m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      m_EditorAssetChanged: 1
     Cost: 5
     FallSpeed: 1
     SwayAmount: 1

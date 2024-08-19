@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Textures
+  m_EditorClassIdentifier: 
+  m_GroupName: Textures
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 025f6df9be520f240b49d3bccbf2349a
+  m_SerializeEntries:
+  - m_GUID: 4baa2bb8602562e429ff390248e07653
+    m_Address: Assets/Textures/uiShopCoral.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 46a48d0ce12b0cd44a3efc73e1d1db37
+    m_Address: Assets/Textures/uiShopMussel.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d65500c550db62d439ed303e7b26f25d
+    m_Address: Assets/Textures/uiShopStar.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 50b9ace25c8bcf94d947aacfe20ddb53
+    m_Address: Assets/Textures/uiShopCucumber.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9909b15e70809a84bb5acf61adbef94b
+    m_Address: Assets/Textures/uiShopAlgae.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e5ff81a3443ba4d40a88394b44fecc63
+    m_Address: Assets/Textures/uiShopSponge.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 1a2bd121fd5e0a9489ac447986ac6daf, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 757e92e3d2e6c784a97d0b6a05ebcb0b, type: 2}
+    - {fileID: 11400000, guid: 54aeb8e0261189649b780dad476b86f4, type: 2}
