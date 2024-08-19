@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
+using UrchinGame.Food;
 using Random = System.Random;
 
 namespace UrchinGame.Game
@@ -17,19 +18,19 @@ namespace UrchinGame.Game
         public Volume globalVolume { get; private set; }
         public System.Random random { get; private set; }
 
+        [SerializeField] private string persistentManagersSceneName;
         [SerializeField] private AssetReference nurseryScene;
 
         private void Awake() {
             instance = this;
             random = new Random();
             globalVolume = GetComponent<Volume>();
-            #if UNITY_EDITOR
-            if (unloadAllNonPMScenesOnStart) { UnloadAllNonPMScenesOnStart(); }
-            #endif
         }
         void Start()
         {
-
+            #if UNITY_EDITOR
+            if (unloadAllNonPMScenesOnStart) { UnloadAllNonPMScenesOnStart(persistentManagersSceneName); }
+            #endif
         }
 
         void Update()
@@ -45,13 +46,13 @@ namespace UrchinGame.Game
         #if UNITY_EDITOR
                 [SerializeField] bool unloadAllNonPMScenesOnStart = true;
                 List<UnityEngine.SceneManagement.Scene> scenes = new List<UnityEngine.SceneManagement.Scene> ();
-                void UnloadAllNonPMScenesOnStart()
+                void UnloadAllNonPMScenesOnStart(string _persistentManagersSceneName)
                 {
                     for (int i = 0; i < SceneManager.sceneCount; i++) { scenes.Add(SceneManager.GetSceneAt(i)); }
                     string output = string.Empty;
                     foreach (UnityEngine.SceneManagement.Scene scene in scenes)
                     {
-                        if (scene.name is not "PersistentManagers")
+                        if (scene.name != _persistentManagersSceneName)
                         {
                             output += scene.name + ", ";
                             #pragma warning disable CS0618 // Type or member is obsolete
