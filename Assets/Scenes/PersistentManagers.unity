@@ -1238,15 +1238,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 15
-    m_Right: 15
-    m_Top: 45
+    m_Left: 0
+    m_Right: 5
+    m_Top: 55
     m_Bottom: 0
   m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 181, y: 183}
-  m_Spacing: {x: 15, y: 15}
+  m_CellSize: {x: 146, y: 117}
+  m_Spacing: {x: 50, y: 30}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!1 &1754513685
@@ -3162,8 +3162,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: A wild developer console appears! Hey wait a minute how did you do that?
-    (all commands are in commands.txt in the game's folder)
+  m_text: Enter a command... (refer to commands.txt in game files)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
