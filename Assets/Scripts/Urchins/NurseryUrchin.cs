@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Unity.Logging;
 using Unity.Mathematics;
 using UnityEngine;
@@ -9,8 +9,11 @@ namespace UrchinGame.Urchins {
     internal sealed class NurseryUrchin : MonoBehaviour {
         // A minimum is needed to ensure the urchin can move around the nursery
         private const float BASE_SPEED = 1f;
+        private const float MIN_IDLE_TIME = 1f;
+        private const float MAX_IDLE_TIME = 3f;
 
         [SerializeField] private float _sizeScale = 0.2f; // Used for collider abd body size
+
         [SerializeField] private StatBlock _stats;
         [SerializeField] private SpriteRenderer _bodyRenderer;
 
@@ -18,6 +21,10 @@ namespace UrchinGame.Urchins {
         private State _state = State.Idle;
         private Rigidbody2D _body;
         private CircleCollider2D _collider;
+        private Unity.Mathematics.Random _rng = new((uint)DateTimeOffset.UtcNow.GetHashCode());
+
+        private float _lastStateChange = float.MinValue;
+        private float _timeToIdle;
 
         private enum State {
             Idle,
@@ -66,6 +73,7 @@ namespace UrchinGame.Urchins {
 
         private void Start() {
             ApplyStats();
+            ToIdle();
         }
 
         private void FixedUpdate() {
@@ -87,9 +95,41 @@ namespace UrchinGame.Urchins {
 
 #region StateMachine
 
-        private void IdleState() { }
+        /// <summary>
+        /// Called when transitioning to idle state
+        /// </summary>
+        private void ToIdle() {
+            Log.Debug("[NurseryUrchin] {0} started Idle", name);
+            _body.gravityScale = 1f;
+            _body.velocity = Vector2.zero;
+            _body.constraints = RigidbodyConstraints2D.FreezePosition;
+            _lastStateChange = Time.time;
+            _timeToIdle = _rng.NextFloat(MIN_IDLE_TIME, MAX_IDLE_TIME);
+            _state = State.Idle;
+        }
 
-        private void WanderState() { }
+        private void IdleState() {
+            if (!(Time.time >= _lastStateChange + _timeToIdle)) return;
+
+            State next = _rng.NextBool() ? State.Wander : State.Rest;
+
+            switch (next) {
+                case State.Wander:
+                    ToWander();
+                    break;
+                case State.Rest:
+                    break;
+                default:
+                    // Unreachable
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            _body.constraints = RigidbodyConstraints2D.None;
+        }
+
+        private void ToWander() {
+            Log.Debug("[NurseryUrchin] {0} started Wander to {1}", name, _wanderTarget);
+        }
 
         private void RestState() { }
 
@@ -111,8 +151,8 @@ namespace UrchinGame.Urchins {
             ApplyStats();
             _trackedFood.Consume();
             _trackedFood = null;
-            _body.simulated = true;
-            _state = State.Idle;
+
+            ToIdle();
         }
 
         private void CarryState() { }
