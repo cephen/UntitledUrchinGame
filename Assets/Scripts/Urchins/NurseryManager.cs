@@ -1,20 +1,27 @@
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using SideFX.Events;
 using Unity.Logging;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UrchinGame.Food;
+using UrchinGame.UI;
 
 namespace UrchinGame.Urchins {
     public sealed class NurseryManager : MonoBehaviour {
         #if UNITY_EDITOR
         [SerializeField, Tooltip("Prefab used in editor to spawn urchins at runtime")]
         private NurseryUrchin _urchinPrefab;
+        [SerializeField, Tooltip("Prefab used in editor to spawn food items at runtime")]
+        private FoodItem _foodItemPrefab;
         #endif
         private Transform sceneRoot;
         private HashSet<NurseryUrchin> _urchins = new();
+        private HashSet<FoodItem> _spawnedFoodItems = new();
+
+
 
 #region Unity Lifecycle
 
@@ -52,14 +59,18 @@ namespace UrchinGame.Urchins {
 
         private void RegisterEventHandlers() {
             _foodReadyBinding = new EventBinding<FoodReady>(OnFoodReady);
+            _onShopPurchaseBinding = new EventBinding<OnShopPurchase>(OnShopPurchase);
             EventBus<FoodReady>.Register(_foodReadyBinding);
+            EventBus<OnShopPurchase>.Register(_onShopPurchaseBinding);
         }
 
         private void DeregisterEventHandlers() {
             EventBus<FoodReady>.Deregister(_foodReadyBinding);
+            EventBus<OnShopPurchase>.Deregister(_onShopPurchaseBinding);
         }
 
         private EventBinding<FoodReady> _foodReadyBinding;
+        private EventBinding<OnShopPurchase> _onShopPurchaseBinding;
 
         private void OnFoodReady(FoodReady e) {
             float3 foodPos = e.Food.transform.position;
@@ -82,6 +93,12 @@ namespace UrchinGame.Urchins {
             }
 
             closest.GoEat(e.Food);
+        }
+
+        private void OnShopPurchase(OnShopPurchase e) {
+            FoodItem newFoodItem = Instantiate(_foodItemPrefab, transform);
+            newFoodItem.Init(e.food, e.contactFilter);
+            _spawnedFoodItems.Add(newFoodItem);
         }
 
 #endregion
