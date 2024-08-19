@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using SideFX.Events;
 using Unity.Logging;
 using Unity.Mathematics;
@@ -12,10 +13,14 @@ namespace UrchinGame.Urchins {
         [SerializeField, Tooltip("Prefab used in editor to spawn urchins at runtime")]
         private NurseryUrchin _urchinPrefab;
         #endif
-
+        private Transform sceneRoot;
         private HashSet<NurseryUrchin> _urchins = new();
 
 #region Unity Lifecycle
+
+        private void Awake() {
+            sceneRoot = gameObject.scene.GetRootGameObjects()[0].transform;
+        }
 
         private void OnEnable() {
             RegisterEventHandlers();
@@ -34,7 +39,7 @@ namespace UrchinGame.Urchins {
             if (modifier && activator) {
                 Vector2 mousePos = Mouse.current.position.ReadValue();
                 Vector3 spawnPos = Camera.main.ScreenToWorldPoint(mousePos).With(z: 0f);
-                NurseryUrchin urchin = Instantiate(_urchinPrefab);
+                NurseryUrchin urchin = Instantiate(_urchinPrefab, sceneRoot);
                 urchin.transform.position = spawnPos;
                 _urchins.Add(urchin);
             }
