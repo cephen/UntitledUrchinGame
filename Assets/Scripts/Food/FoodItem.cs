@@ -1,6 +1,7 @@
-using SideFX.Events;
+﻿using SideFX.Events;
 using Unity.Logging;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace UrchinGame.Food {
@@ -19,6 +20,7 @@ namespace UrchinGame.Food {
 
         private ContactFilter2D _contactFilter;
         private Rigidbody2D _body;
+        private Collider2D _collider;
         private SpriteRenderer _renderer;
         private float _startTime;
         private float _startX;
@@ -40,11 +42,10 @@ namespace UrchinGame.Food {
 
         public void Consume() {
             Log.Debug("[FoodItem] {0} consumed", Data.Name);
-#if UNITY_EDITOR
-            DestroyImmediate(gameObject);
-#else
-            Destroy(gameObject);
-#endif
+            _state = State.Despawning;
+            _despawnStartTime = Time.time;
+            _body.simulated = false;
+            _collider.enabled = false;
         }
 
 
@@ -55,6 +56,7 @@ namespace UrchinGame.Food {
             _startTime = Time.time;
             _renderer = GetComponent<SpriteRenderer>();
             _body = GetComponent<Rigidbody2D>();
+            _collider = GetComponent<Collider2D>();
         }
 
 
