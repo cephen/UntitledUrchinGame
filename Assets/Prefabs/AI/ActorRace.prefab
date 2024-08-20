@@ -129,8 +129,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startSpeed: 5.2
-  speedIncreaseMultiplier: 1.62
-  speedDecreaseMultiplier: 2.13
+  downHillMaxSpeed: 0
+  upHillMaxSpeed: 0
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 0
@@ -163,8 +163,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDrag: 0.3
+  m_AngularDrag: 0.2
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:

@@ -2,12 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Logging;
+using UrchinGame.Urchins;
 
 namespace UrchinGame.AI
 {
     [RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D))]
     public class ActorMove : MonoBehaviour
     {
+        // A minimum is needed to ensure the urchin can move
+        private const float BASE_SPEED = 1f;
+
+        [SerializeField] private StatBlock stats;
+        [SerializeField, Tooltip("Used for collider abd body size")]
+        private float sizeScale = 0.4f;
         [SerializeField] private float startSpeed;
         [SerializeField, Range(0f, 30f), Tooltip("Set the amount speed will be set to when going downhill")]
         private float downHillMaxSpeed;
@@ -15,15 +22,18 @@ namespace UrchinGame.AI
         private float upHillMaxSpeed;
         [SerializeField, Tooltip("Set layer mask of Race Track to check for grounded collisions")]
         private LayerMask groundLayerMask;
-        private float weight; // To do
-        private float size; // To do
+        [SerializeField, Tooltip("Apply body renderer")]
+        private SpriteRenderer bodyRenderer;
+        
+
+        private CircleCollider2D _collider2D;
+        private Rigidbody2D rb;
+        private ActorJump actorJump;
+
+        private Vector3 yOffsetRight, yOffsetLeft;
         private float speed;
         [SerializeField] private bool goingUpHill; // Serialized for debugigng
         [SerializeField] private bool goingDownHill; // Serialized for debugigng - using seperate bools so we know if we are on flat land
-        private CircleCollider2D _collider2D;
-        private Rigidbody2D rb;
-        private Vector3 yOffsetRight, yOffsetLeft;
-        private ActorJump actorJump;
         private bool changeSpeedOnce = false;
 
         private void Awake() {
@@ -35,20 +45,31 @@ namespace UrchinGame.AI
             // Set the position of the raycasts
             yOffsetRight = new Vector3(-_collider2D.radius/2, _collider2D.radius /2, 0f);
             yOffsetLeft = new Vector3(_collider2D.radius/2, _collider2D.radius /2, 0f);
-            speed = startSpeed;
+            ApplyStats();
         }
         private void Update() {
+            
             FrontRayCast();
             BackRayCast();
             CheckTrackAngle();
             //AdjustSpeedOnHill(); - Relying on physics only?
             //Log.Debug($"currente speed = {speed}");
         }
+        #region Get Stats
+        // Need to change how we are getting stats 
+
+        private void ApplyStats() {
+            rb.mass = stats.Weight;
+            _collider2D.radius = stats.Size * 0.5f * sizeScale;
+            bodyRenderer.transform.localScale = stats.Size * sizeScale * Vector3.one;
+            speed = BASE_SPEED * startSpeed;
+        }
+        #endregion
         #region Called in State Machine
         public void Move() {
             //Vector2 sufraceNormal = SurfaceNormalVector(); not working - trying to use surface normal stick to the floor and stop jittering
             Vector2 moveDir = Vector2.right;
-            rb.AddForce(moveDir * speed * Time.fixedDeltaTime, ForceMode2D.Force);
+            rb.AddForce(moveDir * speed, ForceMode2D.Force);
             rb.velocity = Vector3.ClampMagnitude(rb.velocity, speed);
         }
         #endregion
@@ -100,7 +121,7 @@ namespace UrchinGame.AI
                 goingDownHill = false;
             //else Log.Debug($"No slope found");
         }
-
+        // Use for manually adjusting speed on hill
         private void AdjustSpeedOnHill() {
             if (goingUpHill && actorJump.GetGroundedStatus()) {
                 speed = upHillMaxSpeed;
