@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Logging;
 using UrchinGame.Urchins;
+using System;
 
 namespace UrchinGame.AI
 {
@@ -47,13 +48,15 @@ namespace UrchinGame.AI
             yOffsetLeft = new Vector3(_collider2D.radius/2, _collider2D.radius /2, 0f);
             ApplyStats();
         }
+        private void FixedUpdate() {
+            CalculateAndAddTorque();
+        }
         private void Update() {
-            
             FrontRayCast();
             BackRayCast();
             CheckTrackAngle();
             //AdjustSpeedOnHill(); - Relying on physics only?
-            //Log.Debug($"currente speed = {speed}");
+            Log.Debug($"current velocity = {rb.velocity}");
         }
         #region Get Stats
         // Need to change how we are getting stats 
@@ -62,7 +65,7 @@ namespace UrchinGame.AI
             rb.mass = stats.Weight;
             _collider2D.radius = stats.Size * 0.5f * sizeScale;
             bodyRenderer.transform.localScale = stats.Size * sizeScale * Vector3.one;
-            speed = BASE_SPEED * startSpeed;
+            speed = BASE_SPEED + startSpeed;
         }
         #endregion
         #region Called in State Machine
@@ -72,6 +75,7 @@ namespace UrchinGame.AI
             rb.AddForce(moveDir * speed, ForceMode2D.Force);
             rb.velocity = Vector3.ClampMagnitude(rb.velocity, speed);
         }
+
         #endregion
         #region Raycasts
         private RaycastHit2D FrontRayCast() {
@@ -120,6 +124,13 @@ namespace UrchinGame.AI
             else
                 goingDownHill = false;
             //else Log.Debug($"No slope found");
+        }
+        private void CalculateAndAddTorque() {
+            Vector2 globalUp = Vector2.up;
+            double p = Vector2.Dot(globalUp, SurfaceNormalVector()) * 0.5 + 1;
+            double torque = speed * (1 - p);
+            rb.AddTorque((float)torque);
+            Log.Debug($"Current Torque is {torque} and surface normal is {SurfaceNormalVector()}");
         }
         // Use for manually adjusting speed on hill
         private void AdjustSpeedOnHill() {
