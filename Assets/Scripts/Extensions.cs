@@ -336,4 +336,10 @@ public static class Extensions
         array[^1] = default(T);
         Array.Resize<T>(ref array, array.Length - 1);
     }
+    public static int CountOf(this string text, char character)
+    {
+        int count = 0;
+        foreach (char c in text) { if (c == character) count++; }
+        return count;
+    }
 }
