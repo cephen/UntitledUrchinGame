@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 886165815799219739}
   - component: {fileID: 7407579116816030323}
   - component: {fileID: -883483249035777319}
+  - component: {fileID: 6150376056198464610}
   m_Layer: 0
   m_Name: Urchin
   m_TagString: Untagged
@@ -116,6 +117,20 @@ MonoBehaviour:
     MaxSpeed: 1
     Size: 1
   _bodyRenderer: {fileID: 6426433464216353876}
+--- !u!114 &6150376056198464610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3697204702858150975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9abe1082db2023d48800e58de3efa96a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animData: {fileID: 11400000, guid: 76ca1a44b6d695548889fa4866314709, type: 2}
+  _render: {fileID: 6426433464216353876}
 --- !u!1 &5145981771460161162
 GameObject:
   m_ObjectHideFlags: 0
