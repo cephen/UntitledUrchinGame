@@ -17,23 +17,8 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 206cc8a8349c5fc45b652cc9c4c4eedc
   m_SerializeEntries:
-  - m_GUID: 061cff17e9741584bb7e69146bf67c8c
-    m_Address: Assets/Audio/Race Scene
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 865bd0ec7db9f6e41a97532e2b519f4e
-    m_Address: Assets/Audio/UI
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 98ae61853ede3a54bade261d98ffe369
-    m_Address: Assets/Audio/Fish Tank
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8e555d96886719846a0efba3a56a39af
-    m_Address: Assets/Audio/Urchin
+  - m_GUID: a1508d4a545801b41891c278c513138d
+    m_Address: Assets/Audio
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
