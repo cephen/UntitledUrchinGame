@@ -18,8 +18,8 @@ namespace UrchinGame.Urchins {
         private const float TANK_WIDTH = 8f;
 
         [SerializeField] private float _sizeScale = 0.4f; // Used for collider abd body size
-        [SerializeField] private StatBlock _stats;
         [SerializeField] private SpriteRenderer _bodyRenderer;
+        [field: SerializeField] public UrchinData UrchinData { get; private set;} = new();
 
         private FoodItem _trackedFood = null;
         private State _state = State.Idle;
@@ -73,7 +73,7 @@ namespace UrchinGame.Urchins {
 
                 Log.Debug("[NurseryUrchin] Player dropped {0} on treadmill", name);
 
-                if (_stats.Weight < 1.5f) {
+                if (UrchinData.Stats.Weight < 1.5f) {
                     Log.Debug("[NurseryUrchin] {0} needs to eat more before they can start training!", name);
                     break;
                 }
@@ -89,26 +89,25 @@ namespace UrchinGame.Urchins {
         }
 
         internal void CompleteTraining() {
-            _stats.Weight--;
-            _stats.MaxStamina++;
+            UrchinData.CompleteTraining();
             ToIdle();
         }
 
 #region Helpers
 
-        private float MaxEatDistance => _stats.Size;
+        private float MaxEatDistance => UrchinData.Stats.Size;
 
         private float DistanceToFood => _trackedFood switch {
             null => float.PositiveInfinity,
             _ => math.distance(transform.position, _trackedFood.transform.position),
         };
 
-        private float MoveSpeed => BASE_SPEED + _stats.MaxSpeed;
+        private float MoveSpeed => BASE_SPEED + UrchinData.Stats.MaxSpeed;
 
         private void ApplyStats() {
-            _body.mass = _stats.Weight;
-            _collider.radius = _stats.Size * 0.5f * _sizeScale;
-            _bodyRenderer.transform.localScale = _stats.Size * _sizeScale * Vector3.one;
+            _body.mass = UrchinData.Stats.Weight;
+            _collider.radius = UrchinData.Stats.Size * 0.5f * _sizeScale;
+            _bodyRenderer.transform.localScale = UrchinData.Stats.Size * _sizeScale * Vector3.one;
         }
 
 #endregion
@@ -214,7 +213,7 @@ namespace UrchinGame.Urchins {
 
         private void EatState() {
             Log.Debug("[NurseryUrchin] {0} is eating food {1}", name, _trackedFood.name);
-            _stats.Weight += _trackedFood.Data.Weight;
+            UrchinData.Stats.Weight += _trackedFood.Data.Weight;
             ApplyStats();
             _trackedFood.Consume();
             _trackedFood = null;
@@ -240,8 +239,8 @@ namespace UrchinGame.Urchins {
         }
 
         private void TreadmillState() {
-            _body.AddTorque(-_stats.MaxSpeed, ForceMode2D.Force);
-            _body.angularVelocity = math.clamp(_body.angularVelocity, -_stats.MaxSpeed * 100, 0f);
+            _body.AddTorque(-UrchinData.Stats.MaxSpeed, ForceMode2D.Force);
+            _body.angularVelocity = math.clamp(_body.angularVelocity, -UrchinData.Stats.MaxSpeed * 100, 0f);
         }
 
 #endregion

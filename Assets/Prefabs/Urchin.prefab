@@ -111,12 +111,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sizeScale: 0.4
-  _stats:
-    Weight: 1
-    MaxStamina: 1
-    MaxSpeed: 1
-    Size: 1
   _bodyRenderer: {fileID: 6426433464216353876}
+  <UrchinData>k__BackingField:
+    <Stats>k__BackingField:
+      Weight: 1
+      MaxStamina: 1
+      MaxSpeed: 1
+      Size: 1
+    <Animation>k__BackingField: {fileID: 11400000, guid: 76ca1a44b6d695548889fa4866314709, type: 2}
 --- !u!114 &6150376056198464610
 MonoBehaviour:
   m_ObjectHideFlags: 0
