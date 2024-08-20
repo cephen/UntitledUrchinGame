@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Unity.Logging;
 using Unity.Mathematics;
@@ -65,20 +65,32 @@ namespace UrchinGame.Urchins {
         }
 
         private void Drop() {
-
             var contacts = new List<Collider2D>();
             _body.GetContacts(contacts);
 
             foreach (Collider2D contact in contacts) {
-                if (contact.TryGetComponent(out Treadmill treadmill)) {
-                    Log.Debug("[NurseryUrchin] Player dropped {0} on treadmill", name);
-                    transform.SetParent(treadmill.TrainingPosition);
-                    _state = State.Treadmill;
+                if (!contact.TryGetComponent(out Treadmill treadmill)) continue;
+
+                Log.Debug("[NurseryUrchin] Player dropped {0} on treadmill", name);
+
+                if (_stats.Weight < 1.5f) {
+                    Log.Debug("[NurseryUrchin] {0} needs to eat more before they can start training!", name);
+                    break;
+                }
+
+                if (treadmill.Activate(this)) {
+                    ToTreadmill();
                     return;
                 }
             }
 
             Log.Debug("[NurseryUrchin] Player dropped {0}", name);
+            ToIdle();
+        }
+
+        internal void CompleteTraining() {
+            _stats.Weight--;
+            _stats.MaxStamina++;
             ToIdle();
         }
 
@@ -140,6 +152,7 @@ namespace UrchinGame.Urchins {
             _body.gravityScale = 1f;
             _body.drag = 0.7f;
             _body.velocity = Vector2.zero;
+            _body.constraints = RigidbodyConstraints2D.None;
 
             _lastStateChange = Time.time;
             _timeToIdle = _rng.NextFloat(MIN_IDLE_TIME, MAX_IDLE_TIME);
