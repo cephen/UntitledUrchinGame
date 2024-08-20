@@ -5,6 +5,7 @@ using SideFX.Events;
 using Unity.Logging;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 using UrchinGame.Food;
 using UrchinGame.UI;
@@ -18,10 +19,27 @@ namespace UrchinGame.Urchins {
         private FoodItem _foodItemPrefab;
         #endif
         private Transform sceneRoot;
-        private HashSet<NurseryUrchin> _urchins = new();
+        private readonly HashSet<NurseryUrchin> _urchins = new();
         private HashSet<FoodItem> _spawnedFoodItems = new();
 
+        private void TryPickUpUrchin() {
+            Camera cam = Camera.main;
+            Assert.IsNotNull(cam);
 
+            float2 mousePos = Mouse.current.position.ReadValue();
+            Ray ray = cam.ScreenPointToRay(math.float3(mousePos, 0f));
+            var results = new RaycastHit2D[10];
+            int size = Physics2D.GetRayIntersectionNonAlloc(ray, results, 20f);
+
+            if (size == 0) return;
+
+            foreach (RaycastHit2D result in results) {
+                if (result.transform.TryGetComponent(out NurseryUrchin urchin)) {
+                    urchin.PickUp();
+                    break;
+                }
+            }
+        }
 
 #region Unity Lifecycle
 
@@ -51,6 +69,10 @@ namespace UrchinGame.Urchins {
                 _urchins.Add(urchin);
             }
 #endif
+
+            if (Mouse.current.leftButton.wasPressedThisFrame) {
+                TryPickUpUrchin();
+            }
         }
 
 #endregion

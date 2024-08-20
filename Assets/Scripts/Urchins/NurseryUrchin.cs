@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Unity.Logging;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UrchinGame.Food;
 
 namespace UrchinGame.Urchins {
@@ -24,6 +26,7 @@ namespace UrchinGame.Urchins {
         private Rigidbody2D _body;
         private CircleCollider2D _collider;
         private Unity.Mathematics.Random _rng = new((uint)DateTimeOffset.UtcNow.GetHashCode());
+        private Camera _trackedCamera;
 
         private float _lastStateChange = float.MinValue;
         private float _timeToIdle;
@@ -52,6 +55,43 @@ namespace UrchinGame.Urchins {
 
             float distanceToFood = math.distance(transform.position, food.transform.position);
             _state = distanceToFood < MaxEatDistance ? State.Eat : State.MoveToFood;
+        }
+
+        internal void PickUp() {
+            // _body.simulated = false;
+            Log.Debug("[NurseryUrchin] Player picked up {0}", name);
+            _state = State.Carried;
+            _trackedCamera = Camera.main;
+        }
+
+        private void Drop() {
+            var contacts = new List<Collider2D>();
+            _body.GetContacts(contacts);
+
+            foreach (Collider2D contact in contacts) {
+                if (!contact.TryGetComponent(out Treadmill treadmill)) continue;
+
+                Log.Debug("[NurseryUrchin] Player dropped {0} on treadmill", name);
+
+                if (_stats.Weight < 1.5f) {
+                    Log.Debug("[NurseryUrchin] {0} needs to eat more before they can start training!", name);
+                    break;
+                }
+
+                if (treadmill.Activate(this)) {
+                    ToTreadmill();
+                    return;
+                }
+            }
+
+            Log.Debug("[NurseryUrchin] Player dropped {0}", name);
+            ToIdle();
+        }
+
+        internal void CompleteTraining() {
+            _stats.Weight--;
+            _stats.MaxStamina++;
+            ToIdle();
         }
 
 #region Helpers
@@ -110,8 +150,10 @@ namespace UrchinGame.Urchins {
         private void ToIdle() {
             Log.Debug("[NurseryUrchin] {0} started Idle", name);
             _body.gravityScale = 1f;
+            _body.drag = 0.7f;
             _body.velocity = Vector2.zero;
-            _body.constraints = RigidbodyConstraints2D.FreezePosition;
+            _body.constraints = RigidbodyConstraints2D.None;
+
             _lastStateChange = Time.time;
             _timeToIdle = _rng.NextFloat(MIN_IDLE_TIME, MAX_IDLE_TIME);
             _state = State.Idle;
@@ -132,8 +174,6 @@ namespace UrchinGame.Urchins {
                     // Unreachable
                     throw new ArgumentOutOfRangeException();
             }
-
-            _body.constraints = RigidbodyConstraints2D.None;
         }
 
         private void ToWander() {
@@ -161,7 +201,6 @@ namespace UrchinGame.Urchins {
 
         private void MoveToFoodState() {
             if (DistanceToFood < MaxEatDistance) {
-                // _body.simulated = false;
                 _body.velocity = Vector3.zero;
                 _state = State.Eat;
                 return;
@@ -183,8 +222,27 @@ namespace UrchinGame.Urchins {
             ToIdle();
         }
 
-        private void CarryState() { }
-        private void TreadmillState() { }
+        private void CarryState() {
+            if (!Mouse.current.leftButton.isPressed) {
+                Drop();
+                return;
+            }
+
+            float2 mousePos = Mouse.current.position.ReadValue();
+            float3 worldPos = _trackedCamera.ScreenToWorldPoint(math.float3(mousePos, 0f));
+            _body.MovePosition(worldPos.xy);
+        }
+
+        private void ToTreadmill() {
+            _body.constraints = RigidbodyConstraints2D.FreezePosition;
+            _body.velocity = Vector2.zero;
+            _state = State.Treadmill;
+        }
+
+        private void TreadmillState() {
+            _body.AddTorque(-_stats.MaxSpeed, ForceMode2D.Force);
+            _body.angularVelocity = math.clamp(_body.angularVelocity, -_stats.MaxSpeed * 100, 0f);
+        }
 
 #endregion
     }
