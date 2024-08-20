@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7407579116816030323}
   - component: {fileID: -883483249035777319}
   - component: {fileID: 6150376056198464610}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Urchin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,7 +141,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3822625939661845538}
   - component: {fileID: 6426433464216353876}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
