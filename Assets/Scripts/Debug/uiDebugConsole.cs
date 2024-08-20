@@ -5,6 +5,7 @@ using System.Text;
 using TMPro;
 using Unity.Logging;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UrchinGame.Game;
 using UrchinGame.UI;
@@ -62,8 +63,33 @@ namespace UrchinGame.Debug {
                     uiDebug.instance.statsRepeatRate = value;
                     uiDebug.instance.RefreshRepeating();
                 }
+                else { InvalidInput(); }
             }
             else { InvalidInput(); }
+        }
+
+        void playsound() {
+            if (consoleInput.Length > 1) {
+                if (Enum.TryParse<AudioManager.Sounds>(consoleInput[1], out AudioManager.Sounds sound)) {
+                    AudioManager.instance.PlaySound(sound);
+                }
+                else { InvalidInput(); }
+            }
+            else { InvalidInput(); }
+        }
+
+        void stopsoundloops() {
+            if (consoleInput.Length > 1) {
+                if (Enum.TryParse<AudioManager.Sounds>(consoleInput[1], out AudioManager.Sounds sound)) {
+                    AudioManager.instance.StopLoopsBySound(sound);
+                }
+                else { InvalidInput(); }
+            }
+            else { InvalidInput(); }
+        }
+
+        void stopallsoundloops() {
+            AudioManager.instance.StopAllLoops();
         }
 
         void Awake() {
@@ -76,7 +102,7 @@ namespace UrchinGame.Debug {
         public void Start() {
             // to add a new command, just duplicate a command below and replace the string with the
             defaultProfile = GameManager.instance.globalVolume.profile;
-            commands = new() {
+            commands = new Dictionary<string, Action> {
                 { "ping", ping },
                 { "noclip", noclip },
                 { "god", god }, { "godmode", god },
@@ -84,6 +110,10 @@ namespace UrchinGame.Debug {
                 { "vsync", vsync },
                 { "quit", quit }, { "exit", quit },
                 { "debugupdaterate", debugUpdateRate },
+                { "debugaudiologs", static delegate { AudioManager.instance.debugAudioLogs = !AudioManager.instance.debugAudioLogs; } },
+                { "playsound", playsound },
+                { "stopsoundloops", stopsoundloops },
+                { "stopallsoundloops", stopallsoundloops },
                 //{ "reset", WorldGen.instance.Reset }, { "restart", WorldGen.instance.Reset },
             };
             commandKeyList = commands.Keys.ToList();
@@ -207,7 +237,7 @@ namespace UrchinGame.Debug {
             if (previousInputsIndex == 0) { previousInputs[0] = inputField.text; }
 
             if (previousInputs.Count > 1) {
-                if (Input.GetKeyDown(KeyCode.UpArrow)
+                if (Keyboard.current[Key.UpArrow].wasPressedThisFrame
                     && previousInputsIndex < previousInputs.Count - 1) {
                     previousInputsIndex++;
                     inputField.text = previousInputs[previousInputsIndex];
@@ -215,7 +245,7 @@ namespace UrchinGame.Debug {
                     inputField.stringPosition = inputFieldChars.ToList().IndexOf(inputFieldChars[^1]) + 1;
                 }
 
-                if (Input.GetKeyDown(KeyCode.DownArrow)
+                if (Keyboard.current[Key.DownArrow].wasPressedThisFrame
                     && previousInputsIndex > 0) {
                     previousInputsIndex--;
                     inputField.text = previousInputs[previousInputsIndex];
