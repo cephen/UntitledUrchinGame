@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UrchinGame.Urchins;
 
 namespace UrchinGame.AI
 {
@@ -9,13 +10,32 @@ namespace UrchinGame.AI
         public delegate void ActorOutOfStaminaAction();
         public static event ActorOutOfStaminaAction OnActorStaminaDepleted;
 
-        [SerializeField, Range(0f,100f), Tooltip("How long the actor can race for.")] private float stamina;
+        [SerializeField] private UrchinData data;
+        private ActorMove actorMove;
+        private float stamina;
+
+        private void Awake() {
+            actorMove = GetComponent<ActorMove>();
+        }
+
+        private void Start() {
+            ApplyStats();
+        }
 
         private void Update() {
             DepleteStaminaOverTime();
             if (stamina < 0) 
-                OnActorStaminaDepleted?.Invoke();
+                OnActorStaminaDepleted?.Invoke(); // Not set to anything yet
         }
+        #region    Get Stats
+        public void GetData(UrchinData data) {
+            this.data = data;
+        }
+        private void ApplyStats() { // Need to move to state machine
+            stamina = data.Stats.MaxStamina;
+            // Get sprite
+        }
+        #endregion
         public float GetStamina() { return stamina; }
         public void UseStamina(float staminaAmount) {
             stamina -= staminaAmount;

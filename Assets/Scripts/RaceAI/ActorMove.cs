@@ -12,19 +12,14 @@ namespace UrchinGame.AI
     {
         // A minimum is needed to ensure the urchin can move
         private const float BASE_SPEED = 1f;
-
-        [SerializeField] private StatBlock stats;
-        [SerializeField, Tooltip("Used for collider abd body size")]
-        private float sizeScale = 0.4f;
-        [SerializeField] private float startSpeed;
+        [SerializeField] private UrchinData data;
+        //[SerializeField] private float startSpeed; now using urchin data
         [SerializeField, Range(0f, 30f), Tooltip("Set the amount speed will be set to when going downhill")]
         private float downHillMaxSpeed;
         [SerializeField, Range(0f, 30f), Tooltip("Set the amount speed will be set to when going uphill")]
         private float upHillMaxSpeed;
         [SerializeField, Tooltip("Set layer mask of Race Track to check for grounded collisions")]
         private LayerMask groundLayerMask;
-        [SerializeField, Tooltip("Apply body renderer")]
-        private SpriteRenderer bodyRenderer;
         
 
         private CircleCollider2D _collider2D;
@@ -58,14 +53,13 @@ namespace UrchinGame.AI
             //AdjustSpeedOnHill(); - Relying on physics only?
             Log.Debug($"current velocity = {rb.velocity}");
         }
-        #region Get Stats
-        // Need to change how we are getting stats 
-
-        private void ApplyStats() {
-            rb.mass = stats.Weight;
-            _collider2D.radius = stats.Size * 0.5f * sizeScale;
-            bodyRenderer.transform.localScale = stats.Size * sizeScale * Vector3.one;
-            speed = BASE_SPEED + startSpeed;
+        #region    Get Stats
+        public void GetData(UrchinData data) {
+            this.data = data;
+        }
+        private void ApplyStats() { // Need to move to state machine
+            speed = BASE_SPEED + data.Stats.MaxSpeed;
+            // Get sprite
         }
         #endregion
         #region Called in State Machine
@@ -143,7 +137,7 @@ namespace UrchinGame.AI
                 //Log.Debug("Speed Changed");
             }
             if (!goingDownHill && !goingUpHill)
-                speed = startSpeed;
+                speed = data.Stats.MaxSpeed;
         }
     }
 }
