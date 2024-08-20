@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Unity.Logging;
 using Unity.Mathematics;
@@ -219,7 +219,17 @@ namespace UrchinGame.Urchins {
             float3 worldPos = _trackedCamera.ScreenToWorldPoint(math.float3(mousePos, 0f));
             _body.MovePosition(worldPos.xy);
         }
-        private void TreadmillState() { }
+
+        private void ToTreadmill() {
+            _body.constraints = RigidbodyConstraints2D.FreezePosition;
+            _body.velocity = Vector2.zero;
+            _state = State.Treadmill;
+        }
+
+        private void TreadmillState() {
+            _body.AddTorque(-_stats.MaxSpeed, ForceMode2D.Force);
+            _body.angularVelocity = math.clamp(_body.angularVelocity, -_stats.MaxSpeed * 100, 0f);
+        }
 
 #endregion
     }
