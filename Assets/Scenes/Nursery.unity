@@ -627,6 +627,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Treadmill
       objectReference: {fileID: 0}
+    - target: {fileID: 8411173130414557856, guid: e506f7ef68a3178479acd23ecbf62530, type: 3}
+      propertyPath: _inactiveSprite.m_SubObjectName
+      value: treadmill
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
