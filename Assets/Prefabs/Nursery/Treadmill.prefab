@@ -178,6 +178,7 @@ MonoBehaviour:
   <TrainingPosition>k__BackingField: {fileID: 8818507031249209036}
   _renderer: {fileID: 6617339242424004847}
   _animationFPS: 4
+  _trainingDuration: 5
   _inactiveSprite:
     m_AssetGUID: 51728c08975088244a0450cb8428bf26
     m_SubObjectName: Treadmill

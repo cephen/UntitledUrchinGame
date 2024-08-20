@@ -459,7 +459,7 @@ GameObject:
   - component: {fileID: 1487605845}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -621,10 +621,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1044842674377232948, guid: e506f7ef68a3178479acd23ecbf62530, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6617339242424004847, guid: e506f7ef68a3178479acd23ecbf62530, type: 3}
-      propertyPath: m_WasSpriteAssigned
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8098769380765839177, guid: e506f7ef68a3178479acd23ecbf62530, type: 3}
