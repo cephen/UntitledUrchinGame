@@ -4,7 +4,7 @@ using UnityEngine;
 using Unity.Logging;
 using UnityEngine.InputSystem;
 
-namespace UrchinGame
+namespace UrchinGame.AI
 {
     public class RaceStateMachine : MonoBehaviour
     {
@@ -29,7 +29,7 @@ namespace UrchinGame
                     if (actorStamina.GetStamina() < 0)
                         stateMachine = StateMachince.NoStamina;
                     actorMove.Move();
-                    if (Keyboard.current[Key.Space].wasPressedThisFrame && isPlayable)
+                    if (Keyboard.current[Key.Space].wasPressedThisFrame && isPlayable) // Need to change input system
                         stateMachine = StateMachince.Jump;
                     break;
 
