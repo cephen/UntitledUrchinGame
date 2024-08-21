@@ -85,7 +85,7 @@ namespace UrchinGame.Food {
                     }
 
                     float alpha = 1f - math.clamp(elapsedRatio, 0f, 1f);
-                    _renderer.color = _renderer.color.WithAlpha(alpha);
+                    _renderer.color = new Color(_renderer.color.r, _renderer.color.g, _renderer.color.b, alpha);
                     return;
                 default:
                     return;

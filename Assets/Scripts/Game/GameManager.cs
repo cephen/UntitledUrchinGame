@@ -14,7 +14,7 @@ namespace UrchinGame.Game
     public class GameManager : MonoBehaviour
     {
         public static GameManager instance { get; private set; }
-        public Bank bank { get; private set; } = ScriptableObject.CreateInstance<Bank>();
+        public Bank bank { get; private set; }
         public bool paused { get; private set; }
         public Volume globalVolume { get; private set; }
         public System.Random random { get; private set; }
@@ -26,6 +26,7 @@ namespace UrchinGame.Game
             instance = this;
             random = new Random();
             globalVolume = GetComponent<Volume>();
+            bank = ScriptableObject.CreateInstance<Bank>();
         }
         void Start()
         {
