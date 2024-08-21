@@ -13,7 +13,7 @@ namespace UrchinGame.AI
         private Rigidbody2D rb;
         private const int maxJumpCount = 1;
         private int jumpCount = 0;
-        private bool isGrounded;
+        [SerializeField]private bool isGrounded;
         
         private void Start() {
             rb = GetComponent<Rigidbody2D>();
@@ -24,11 +24,12 @@ namespace UrchinGame.AI
                 jumpCount++;
                 isGrounded = false;
                 Vector2 jumpDir = Vector2.up;
-                rb.AddForce(jumpDir * jumpPower * Time.fixedDeltaTime, ForceMode2D.Impulse);
+                rb.AddForce(jumpDir * jumpPower, ForceMode2D.Impulse);
                 actorStamina.UseStamina(jumpStaminaAmount);
                 Log.Debug($"Jumped");
             }
         }
+
         public bool GetGroundedStatus() {
             return isGrounded;
         }

@@ -2,28 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Logging;
+using UrchinGame.Urchins;
+using System;
 
 namespace UrchinGame.AI
 {
     [RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D))]
     public class ActorMove : MonoBehaviour
     {
-        [SerializeField] private float startSpeed;
+        // A minimum is needed to ensure the urchin can move
+        private const float BASE_SPEED = 1f;
+        [SerializeField] private UrchinData data;
+        //[SerializeField] private float startSpeed; now using urchin data
         [SerializeField, Range(0f, 30f), Tooltip("Set the amount speed will be set to when going downhill")]
         private float downHillMaxSpeed;
         [SerializeField, Range(0f, 30f), Tooltip("Set the amount speed will be set to when going uphill")]
         private float upHillMaxSpeed;
         [SerializeField, Tooltip("Set layer mask of Race Track to check for grounded collisions")]
         private LayerMask groundLayerMask;
-        private float weight; // To do
-        private float size; // To do
+        
+
+        private CircleCollider2D _collider2D;
+        private Rigidbody2D rb;
+        private ActorJump actorJump;
+
+        private Vector3 yOffsetRight, yOffsetLeft;
         private float speed;
         [SerializeField] private bool goingUpHill; // Serialized for debugigng
         [SerializeField] private bool goingDownHill; // Serialized for debugigng - using seperate bools so we know if we are on flat land
-        private CircleCollider2D _collider2D;
-        private Rigidbody2D rb;
-        private Vector3 yOffsetRight, yOffsetLeft;
-        private ActorJump actorJump;
         private bool changeSpeedOnce = false;
 
         private void Awake() {
@@ -35,22 +41,37 @@ namespace UrchinGame.AI
             // Set the position of the raycasts
             yOffsetRight = new Vector3(-_collider2D.radius/2, _collider2D.radius /2, 0f);
             yOffsetLeft = new Vector3(_collider2D.radius/2, _collider2D.radius /2, 0f);
-            speed = startSpeed;
+            ApplySpeedStats();
+        }
+        private void FixedUpdate() {
+            CalculateAndAddTorque();
         }
         private void Update() {
             FrontRayCast();
             BackRayCast();
             CheckTrackAngle();
             //AdjustSpeedOnHill(); - Relying on physics only?
-            //Log.Debug($"currente speed = {speed}");
+            Log.Debug($"current velocity = {rb.velocity}");
         }
+        #region    Get Stats
+
+        public void GetData(UrchinData data) {
+            this.data = data;
+        }
+        
+        private void ApplySpeedStats() {
+            //float placeholderSpeed = 1f;
+            speed = BASE_SPEED + data.Stats.MaxSpeed;
+        }
+        #endregion
         #region Called in State Machine
         public void Move() {
             //Vector2 sufraceNormal = SurfaceNormalVector(); not working - trying to use surface normal stick to the floor and stop jittering
             Vector2 moveDir = Vector2.right;
-            rb.AddForce(moveDir * speed * Time.fixedDeltaTime, ForceMode2D.Force);
+            rb.AddForce(moveDir * speed, ForceMode2D.Force);
             rb.velocity = Vector3.ClampMagnitude(rb.velocity, speed);
         }
+
         #endregion
         #region Raycasts
         private RaycastHit2D FrontRayCast() {
@@ -100,7 +121,14 @@ namespace UrchinGame.AI
                 goingDownHill = false;
             //else Log.Debug($"No slope found");
         }
-
+        private void CalculateAndAddTorque() {
+            Vector2 globalUp = Vector2.up;
+            double p = Vector2.Dot(globalUp, SurfaceNormalVector()) * 0.5 + 1;
+            double torque = speed * (1 - p);
+            rb.AddTorque((float)torque);
+            Log.Debug($"Current Torque is {torque} and surface normal is {SurfaceNormalVector()}");
+        }
+        // Use for manually adjusting speed on hill
         private void AdjustSpeedOnHill() {
             if (goingUpHill && actorJump.GetGroundedStatus()) {
                 speed = upHillMaxSpeed;
@@ -110,8 +138,10 @@ namespace UrchinGame.AI
                 speed = downHillMaxSpeed;
                 //Log.Debug("Speed Changed");
             }
-            if (!goingDownHill && !goingUpHill)
-                speed = startSpeed;
+            if (!goingDownHill && !goingUpHill) {
+                //speed = data.Stats.MaxSpeed;
+            }
+
         }
     }
 }

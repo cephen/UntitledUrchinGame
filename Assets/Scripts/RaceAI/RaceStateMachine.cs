@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Logging;
 using UnityEngine.InputSystem;
+using UrchinGame.Urchins;
 
 namespace UrchinGame.AI
 {
+    [RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D))]
     public class RaceStateMachine : MonoBehaviour
     {
-        [SerializeField] private bool isPlayable;
+        [SerializeField, Tooltip("Tick to make actor playable")] private bool isPlayable;
+
+        [SerializeField, Tooltip("Used for collider abd body size")]
+        private float sizeScale = 0.4f;
+        [SerializeField] private UrchinData data;
         private enum StateMachince { Running, NoStamina, Jump }
         private StateMachince stateMachine;
 
@@ -16,13 +22,43 @@ namespace UrchinGame.AI
         private ActorJump actorJump;
         private ActorStamina actorStamina;
 
+        private Rigidbody2D rb;
+        private CircleCollider2D _collider2D;
+        [SerializeField, Tooltip("Apply body renderer")]
+        private SpriteRenderer bodyRenderer;
+
+        private float speed;
+
 
         private void Start() {
             actorMove = GetComponent<ActorMove>();
             actorJump = GetComponent<ActorJump>();
             actorStamina = GetComponent<ActorStamina>();
+            rb = GetComponent<Rigidbody2D>();
+            _collider2D = GetComponent<CircleCollider2D>();
+            bodyRenderer = GetComponentInChildren<SpriteRenderer>();
+            if (isPlayable) ApplyPlayerUrchinStats();
+            if (!isPlayable) ApplyRandomStats();
+        }
+        #region    Get Stats
+        
+        public void GetData(UrchinData data) {
+            this.data = data;
+        }
+        
+        private void ApplyPlayerUrchinStats() { // switch to UrchinData class stats
+            //float placeholderWeight = 1;
+            //float placeholderSize = 1;
+            rb.mass = data.Stats.Weight;
+            _collider2D.radius = data.Stats.Size * 0.5f * sizeScale;
+            bodyRenderer.transform.localScale = data.Stats.Size * sizeScale * Vector3.one;
+            // Get sprite data
+        }
+        private void ApplyRandomStats() {
+            // Randomise Stats for AI racers
         }
 
+        #endregion
         void FixedUpdate() {
             switch (stateMachine) {
                 case StateMachince.Running:
