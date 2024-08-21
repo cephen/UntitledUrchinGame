@@ -34,18 +34,30 @@ namespace UrchinGame.AI
             actorMove = GetComponent<ActorMove>();
             actorJump = GetComponent<ActorJump>();
             actorStamina = GetComponent<ActorStamina>();
-            ApplyStats();
+            rb = GetComponent<Rigidbody2D>();
+            _collider2D = GetComponent<CircleCollider2D>();
+            bodyRenderer = GetComponentInChildren<SpriteRenderer>();
+            if (isPlayable) ApplyPlayerUrchinStats();
+            if (!isPlayable) ApplyRandomStats();
         }
         #region    Get Stats
+        
         public void GetData(UrchinData data) {
             this.data = data;
         }
-        private void ApplyStats() { // Need to move to state machine
+        
+        private void ApplyPlayerUrchinStats() { // switch to UrchinData class stats
+            //float placeholderWeight = 1;
+            //float placeholderSize = 1;
             rb.mass = data.Stats.Weight;
             _collider2D.radius = data.Stats.Size * 0.5f * sizeScale;
             bodyRenderer.transform.localScale = data.Stats.Size * sizeScale * Vector3.one;
-            // Get sprite
+            // Get sprite data
         }
+        private void ApplyRandomStats() {
+            // Randomise Stats for AI racers
+        }
+
         #endregion
         void FixedUpdate() {
             switch (stateMachine) {

@@ -41,7 +41,7 @@ namespace UrchinGame.AI
             // Set the position of the raycasts
             yOffsetRight = new Vector3(-_collider2D.radius/2, _collider2D.radius /2, 0f);
             yOffsetLeft = new Vector3(_collider2D.radius/2, _collider2D.radius /2, 0f);
-            ApplyStats();
+            ApplySpeedStats();
         }
         private void FixedUpdate() {
             CalculateAndAddTorque();
@@ -54,12 +54,14 @@ namespace UrchinGame.AI
             Log.Debug($"current velocity = {rb.velocity}");
         }
         #region    Get Stats
+
         public void GetData(UrchinData data) {
             this.data = data;
         }
-        private void ApplyStats() { // Need to move to state machine
+        
+        private void ApplySpeedStats() {
+            //float placeholderSpeed = 1f;
             speed = BASE_SPEED + data.Stats.MaxSpeed;
-            // Get sprite
         }
         #endregion
         #region Called in State Machine
@@ -136,8 +138,10 @@ namespace UrchinGame.AI
                 speed = downHillMaxSpeed;
                 //Log.Debug("Speed Changed");
             }
-            if (!goingDownHill && !goingUpHill)
-                speed = data.Stats.MaxSpeed;
+            if (!goingDownHill && !goingUpHill) {
+                //speed = data.Stats.MaxSpeed;
+            }
+
         }
     }
 }

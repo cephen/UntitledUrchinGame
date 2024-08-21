@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UrchinGame.Urchins;
+using Unity.Logging;
 
 namespace UrchinGame.AI
 {
@@ -19,21 +20,26 @@ namespace UrchinGame.AI
         }
 
         private void Start() {
-            ApplyStats();
+            ApplyStaminaStats();
         }
 
         private void Update() {
             DepleteStaminaOverTime();
-            if (stamina < 0) 
+            if (stamina < 0) {
                 OnActorStaminaDepleted?.Invoke(); // Not set to anything yet
+                Log.Debug("out of stamina");
+            }
+                
         }
         #region    Get Stats
+
         public void GetData(UrchinData data) {
             this.data = data;
         }
-        private void ApplyStats() { // Need to move to state machine
-            stamina = data.Stats.MaxStamina;
-            // Get sprite
+        
+        private void ApplyStaminaStats() { // change to data stats
+            float placeholderStamina = 80;
+            stamina = placeholderStamina;
         }
         #endregion
         public float GetStamina() { return stamina; }
