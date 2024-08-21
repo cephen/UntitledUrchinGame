@@ -21,6 +21,7 @@ namespace UrchinGame.AI
         private ActorMove actorMove;
         private ActorJump actorJump;
         private ActorStamina actorStamina;
+        private ActorChangeSize actorChangeSize;
 
         private Rigidbody2D rb;
         private CircleCollider2D _collider2D;
@@ -28,45 +29,27 @@ namespace UrchinGame.AI
         private SpriteRenderer bodyRenderer;
 
         private float speed;
-
+        private bool noStamina = false;
 
         private void Start() {
             actorMove = GetComponent<ActorMove>();
             actorJump = GetComponent<ActorJump>();
             actorStamina = GetComponent<ActorStamina>();
+            actorChangeSize = GetComponent<ActorChangeSize>();
             rb = GetComponent<Rigidbody2D>();
             _collider2D = GetComponent<CircleCollider2D>();
             bodyRenderer = GetComponentInChildren<SpriteRenderer>();
             if (isPlayable) ApplyPlayerUrchinStats();
             if (!isPlayable) ApplyRandomStats();
         }
-        #region    Get Stats
         
-        public void GetData(UrchinData data) {
-            this.data = data;
-        }
-        
-        private void ApplyPlayerUrchinStats() { // switch to UrchinData class stats
-            //float placeholderWeight = 1;
-            //float placeholderSize = 1;
-            rb.mass = data.Stats.Weight;
-            _collider2D.radius = data.Stats.Size * 0.5f * sizeScale;
-            bodyRenderer.transform.localScale = data.Stats.Size * sizeScale * Vector3.one;
-            // Get sprite data
-        }
-        private void ApplyRandomStats() {
-            // Randomise Stats for AI racers
-        }
-
-        #endregion
+        #region Racing AI Statemachine
         void FixedUpdate() {
             switch (stateMachine) {
                 case StateMachince.Running:
                     if (actorStamina.GetStamina() < 0)
                         stateMachine = StateMachince.NoStamina;
                     actorMove.Move();
-                    if (Keyboard.current[Key.Space].wasPressedThisFrame && isPlayable) // Need to change input system
-                        stateMachine = StateMachince.Jump;
                     break;
 
                 case StateMachince.Jump:
@@ -82,5 +65,35 @@ namespace UrchinGame.AI
                     break;
             }
         }
+        #endregion
+
+        #region Player Input
+        private void Update() {
+            if (Keyboard.current[Key.Space].wasPressedThisFrame && isPlayable) // Need to change input system
+                actorJump.Jump();
+            if (Keyboard.current[Key.Enter].wasPressedThisFrame && isPlayable) { // <3 if Statements
+                actorChangeSize.ChangeUrchinSize();
+            }
+        }
+        #endregion
+
+        #region    Get Stats
+
+        public void GetData(UrchinData data) {
+            this.data = data;
+        }
+
+        private void ApplyPlayerUrchinStats() { // switch to UrchinData class stats
+            //float placeholderWeight = 1;
+            //float placeholderSize = 1;
+            rb.mass = data.Stats.Weight;
+            _collider2D.radius = data.Stats.Size * 0.5f * sizeScale;
+            bodyRenderer.transform.localScale = data.Stats.Size * sizeScale * Vector3.one;
+            // Get sprite data
+        }
+        private void ApplyRandomStats() {
+            // Randomise Stats for AI racers
+        }
+        #endregion
     }
 }
