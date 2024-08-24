@@ -3863,23 +3863,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc1399bebc1a7994f8a28faa9f717631, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiAnimatedButtons:
-  - button: {fileID: 5444812695023741715}
+  animatedImages:
+  - image: {fileID: 1471265723079267370}
     sprites:
     - {fileID: 21300000, guid: 4f5e2084688c90f4697779a03f915d2c, type: 3}
     - {fileID: 21300000, guid: 76feead228ec2c04cb7ad65d24b809cf, type: 3}
     - {fileID: 21300000, guid: 2ff41d3c75cb8f04c98ac477137163d4, type: 3}
     - {fileID: 21300000, guid: 201269cd6460a1b41a56931dde43360d, type: 3}
-    timeToSwitchSprite: 0.05
+    timeToSwitchSprite: 0.15
     spriteTimer: 0
     currentSpriteIndex: 0
-  - button: {fileID: 2970041208723342110}
+  - image: {fileID: 8686494267516696403}
     sprites:
     - {fileID: 21300000, guid: bc467b1ec57338a4d97caba29fb71db2, type: 3}
     - {fileID: 21300000, guid: a6d42fa7f354c7141a3cf9af94e265cf, type: 3}
     - {fileID: 21300000, guid: 5e2b5bf1d2a0c2c4888bdc1c5f1e908a, type: 3}
     - {fileID: 21300000, guid: 7fd4275b3aa8fc34fa96018a4fa3aba4, type: 3}
-    timeToSwitchSprite: 0.05
+    timeToSwitchSprite: 0.15
     spriteTimer: 0
     currentSpriteIndex: 0
 --- !u!114 &8686494267516696403
