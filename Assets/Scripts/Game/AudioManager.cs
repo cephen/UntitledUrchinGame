@@ -11,14 +11,6 @@ using UrchinGame.Game;
 using UrchinGame.UI;
 
 namespace UrchinGame.Game {
-
-    [System.Serializable]
-    public class ListWrapper
-    {
-        public List<AudioClip> myList;
-    }
-
-
     public class AudioManager : MonoBehaviour {
         public static AudioManager instance { get; private set; }
         private AudioSource audioSource;
