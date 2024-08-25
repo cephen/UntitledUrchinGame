@@ -1635,6 +1635,7 @@ GameObject:
   - component: {fileID: 4327984525424948373}
   - component: {fileID: 1471265723079267370}
   - component: {fileID: 5444812695023741715}
+  - component: {fileID: 5444812695023741716}
   m_Layer: 5
   m_Name: uiMainMenuPlay
   m_TagString: Untagged
@@ -3014,6 +3015,24 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5444812695023741716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1033026924197667159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d69b0274c50620c47a7d125c1dbf638a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: 4f5e2084688c90f4697779a03f915d2c, type: 3}
+  - {fileID: 21300000, guid: 76feead228ec2c04cb7ad65d24b809cf, type: 3}
+  - {fileID: 21300000, guid: 2ff41d3c75cb8f04c98ac477137163d4, type: 3}
+  - {fileID: 21300000, guid: 201269cd6460a1b41a56931dde43360d, type: 3}
+  timeToSwitchSprite: 0.15
 --- !u!114 &5766391010560671597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3863,25 +3882,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc1399bebc1a7994f8a28faa9f717631, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animatedImages:
-  - image: {fileID: 1471265723079267370}
-    sprites:
-    - {fileID: 21300000, guid: 4f5e2084688c90f4697779a03f915d2c, type: 3}
-    - {fileID: 21300000, guid: 76feead228ec2c04cb7ad65d24b809cf, type: 3}
-    - {fileID: 21300000, guid: 2ff41d3c75cb8f04c98ac477137163d4, type: 3}
-    - {fileID: 21300000, guid: 201269cd6460a1b41a56931dde43360d, type: 3}
-    timeToSwitchSprite: 0.15
-    spriteTimer: 0
-    currentSpriteIndex: 0
-  - image: {fileID: 8686494267516696403}
-    sprites:
-    - {fileID: 21300000, guid: bc467b1ec57338a4d97caba29fb71db2, type: 3}
-    - {fileID: 21300000, guid: a6d42fa7f354c7141a3cf9af94e265cf, type: 3}
-    - {fileID: 21300000, guid: 5e2b5bf1d2a0c2c4888bdc1c5f1e908a, type: 3}
-    - {fileID: 21300000, guid: 7fd4275b3aa8fc34fa96018a4fa3aba4, type: 3}
-    timeToSwitchSprite: 0.15
-    spriteTimer: 0
-    currentSpriteIndex: 0
 --- !u!114 &8686494267516696403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3924,6 +3924,7 @@ GameObject:
   - component: {fileID: 2781707015421562937}
   - component: {fileID: 8686494267516696403}
   - component: {fileID: 2970041208723342110}
+  - component: {fileID: 8802909845668674134}
   m_Layer: 5
   m_Name: uiMainMenuQuit
   m_TagString: Untagged
@@ -3931,6 +3932,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8802909845668674134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8802909845668674133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d69b0274c50620c47a7d125c1dbf638a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: bc467b1ec57338a4d97caba29fb71db2, type: 3}
+  - {fileID: 21300000, guid: a6d42fa7f354c7141a3cf9af94e265cf, type: 3}
+  - {fileID: 21300000, guid: 5e2b5bf1d2a0c2c4888bdc1c5f1e908a, type: 3}
+  - {fileID: 21300000, guid: 7fd4275b3aa8fc34fa96018a4fa3aba4, type: 3}
+  timeToSwitchSprite: 0.15
 --- !u!224 &8851696209008564661
 RectTransform:
   m_ObjectHideFlags: 0
