@@ -157,7 +157,6 @@ namespace UrchinGame.Game {
         private void PlaySound(string soundBaseName,  bool randomise = true, int variant = 0, bool loop = false) {
             if (sounds.TryGetValue(soundBaseName, out List<AudioClip> soundVariants)) {
                 if (randomise) { variant = GameManager.instance.random.Next(soundVariants.Count); }
-                Mathf.Clamp(variant, 0, soundVariants.Count - 1);
                 audioSource.PlayOneShot(soundVariants[variant]);
                 return;
             }
